@@ -1,4 +1,4 @@
-package com.example.fmtoy.ui
+package people.droid.roulette.ui
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D

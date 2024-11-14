@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="people.droid.pixelart.MainActivity"/>
+        <activity android:name="people.droid.roulette.MainActivity"/>
     </application>
 
 </manifest>

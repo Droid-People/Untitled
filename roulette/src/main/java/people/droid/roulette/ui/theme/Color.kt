@@ -1,4 +1,4 @@
-package com.example.fmtoy.ui.theme
+package people.droid.roulette.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,6 +1,5 @@
-package com.example.fmtoy.ui
+package people.droid.roulette.ui
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 data class RouletteItem(

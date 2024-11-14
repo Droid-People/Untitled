@@ -49,7 +49,10 @@ class MainViewModel: ViewModel() {
             }
 
             PixelBoardActions.DECREASE_PIXEL_SIZE -> {
-                if (pixelSize.value <= 4) return
+                if (pixelSize.value == 4) {
+                    pixelSize.value = 2
+                    return
+                } else if (pixelSize.value <= 2) return
                 pixelSize.value -= 4
             }
         }

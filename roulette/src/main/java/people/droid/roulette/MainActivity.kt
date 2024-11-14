@@ -1,4 +1,4 @@
-package com.example.fmtoy
+package people.droid.roulette
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -34,17 +34,17 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.fmtoy.ui.Roulette
-import com.example.fmtoy.ui.RouletteButton
-import com.example.fmtoy.ui.RouletteItem
-import com.example.fmtoy.ui.RouletteItems
-import com.example.fmtoy.ui.RouletteSettingTextField
-import com.example.fmtoy.ui.RouletteState
-import com.example.fmtoy.ui.RouletteViewModel
-import com.example.fmtoy.ui.theme.FMToyTheme
-import com.example.fmtoy.ui.theme.MyBeige
-import com.example.fmtoy.ui.theme.MyBlue
-import com.example.fmtoy.ui.theme.MyBrown
+import people.droid.roulette.ui.Roulette
+import people.droid.roulette.ui.RouletteButton
+import people.droid.roulette.ui.RouletteItem
+import people.droid.roulette.ui.RouletteItems
+import people.droid.roulette.ui.RouletteSettingTextField
+import people.droid.roulette.ui.RouletteState
+import people.droid.roulette.ui.RouletteViewModel
+import people.droid.roulette.ui.theme.FMToyTheme
+import people.droid.roulette.ui.theme.MyBeige
+import people.droid.roulette.ui.theme.MyBlue
+import people.droid.roulette.ui.theme.MyBrown
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {

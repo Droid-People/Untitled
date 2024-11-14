@@ -1,4 +1,4 @@
-package com.example.fmtoy.ui
+package people.droid.roulette.ui
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
-import com.example.fmtoy.ui.theme.MyBabyPink
+import people.droid.roulette.ui.theme.MyBabyPink
 
 @Composable
 fun Roulette(

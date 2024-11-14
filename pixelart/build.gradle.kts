@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "people.droid.pixelart"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24

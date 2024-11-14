@@ -1,4 +1,4 @@
-package com.example.fmtoy.ui
+package people.droid.roulette.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.fmtoy.ui.theme.MyBrown
-import com.example.fmtoy.ui.theme.TextFieldBackground
+import people.droid.roulette.ui.theme.MyBrown
+import people.droid.roulette.ui.theme.TextFieldBackground
 
 @Composable
 fun RouletteSettingTextField(

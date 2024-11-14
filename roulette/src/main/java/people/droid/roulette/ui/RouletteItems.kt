@@ -1,9 +1,9 @@
-package com.example.fmtoy.ui
+package people.droid.roulette.ui
 
 import androidx.compose.ui.graphics.Color
-import com.example.fmtoy.ui.theme.MyBlue
-import com.example.fmtoy.ui.theme.MyPink
-import com.example.fmtoy.ui.theme.MyYellow
+import people.droid.roulette.ui.theme.MyBlue
+import people.droid.roulette.ui.theme.MyPink
+import people.droid.roulette.ui.theme.MyYellow
 
 class RouletteItems private constructor(
     private val items: MutableList<RouletteItem>

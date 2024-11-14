@@ -26,4 +26,9 @@ val Typography = Typography(
         fontWeight = FontWeight.ExtraBold,
         fontSize = 70.sp
     ),
+    titleSmall = TextStyle(
+        fontFamily = PixelFontFamily,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 14.sp
+    ),
 )

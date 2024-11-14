@@ -1,4 +1,4 @@
-package com.example.fmtoy.ui
+package people.droid.roulette.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.fmtoy.ui.theme.MyBrown
+import people.droid.roulette.ui.theme.MyBrown
 
 @Composable
 fun RouletteButton(modifier: Modifier = Modifier, onClick: () -> Unit, text: String, enabled:Boolean = true) {

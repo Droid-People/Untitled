@@ -35,12 +35,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.MutableStateFlow
 import people.droid.pixelart.colorpicker.ColorPalette
 import people.droid.pixelart.colorpicker.ColorPickerDialog
 import people.droid.pixelart.controller.PixelSizeController
 import people.droid.pixelart.ui.ScaffoldWithBox
 import people.droid.pixelart.ui.theme.PixelArtMakerTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -65,7 +65,8 @@ fun MainScreen(
 
     ScaffoldWithBox {
         Column(Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Pixel")
+            Text("Pixel", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.secondary)
+            Text("by boring-km", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.secondary)
             Box(
                 Modifier
                     .width(boardSizeDp)
@@ -100,7 +101,6 @@ fun MainScreen(
                     }
                 }
             }
-            Spacer(Modifier.height(16.dp))
             PixelSizeController(pixelSize.value, onChangePixelBoardSize)
         }
 
