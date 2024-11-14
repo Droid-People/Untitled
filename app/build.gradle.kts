@@ -40,6 +40,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":pixelart"))
+    implementation(project(":puzzle"))
+    implementation(project(":roulette"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
