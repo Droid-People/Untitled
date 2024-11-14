@@ -50,6 +50,17 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Text("Roulette")
                         }
+                        Button(
+                            onClick = {
+                                val intent = Intent(
+                                    this@MainActivity,
+                                    people.droid.puzzle.MainActivity::class.java
+                                )
+                                startActivity(intent)
+                            }
+                        ) {
+                            Text("Puzzle")
+                        }
                     }
                 }
             }

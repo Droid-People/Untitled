@@ -24,6 +24,7 @@
         </activity>
         <activity android:name="people.droid.pixelart.MainActivity"/>
         <activity android:name="people.droid.roulette.MainActivity"/>
+        <activity android:name="people.droid.puzzle.MainActivity"/>
     </application>
 
 </manifest>

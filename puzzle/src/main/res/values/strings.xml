@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">puzzle</string>
+    <string name="minus_board_size">&lt;</string>
+    <string name="plus_board_size">&gt;</string>
+    <string name="start_button">start</string>
+    <string name="reset_button">reset</string>
+</resources>
