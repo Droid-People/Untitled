@@ -1,4 +1,4 @@
-package people.droid.roulette.ui
+package people.droid.roulette.domain.model
 
 import androidx.compose.ui.graphics.Color
 

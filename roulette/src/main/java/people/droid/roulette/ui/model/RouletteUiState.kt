@@ -1,7 +1,8 @@
-package people.droid.roulette.ui
+package people.droid.roulette.ui.model
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
+import people.droid.roulette.domain.model.RouletteItems
 
 data class RouletteUiState(
     val number: Int = 2,

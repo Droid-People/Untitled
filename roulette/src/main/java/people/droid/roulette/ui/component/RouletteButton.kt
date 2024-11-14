@@ -1,4 +1,4 @@
-package people.droid.roulette.ui
+package people.droid.roulette.ui.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button

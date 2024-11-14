@@ -1,4 +1,4 @@
-package people.droid.roulette.ui
+package people.droid.roulette.ui.viewmodel
 
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.tween
@@ -6,6 +6,10 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import people.droid.roulette.domain.model.RouletteItem
+import people.droid.roulette.domain.model.RouletteItems
+import people.droid.roulette.ui.model.RouletteState
+import people.droid.roulette.ui.model.RouletteUiState
 import kotlin.random.Random
 
 class RouletteViewModel : ViewModel() {

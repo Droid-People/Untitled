@@ -1,4 +1,4 @@
-package people.droid.roulette.ui
+package people.droid.roulette.ui.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize

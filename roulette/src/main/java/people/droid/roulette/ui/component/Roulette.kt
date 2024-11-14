@@ -1,4 +1,4 @@
-package people.droid.roulette.ui
+package people.droid.roulette.ui.component
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -29,6 +29,8 @@ import androidx.compose.ui.unit.sp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
+import people.droid.roulette.domain.model.RouletteItems
+import people.droid.roulette.ui.model.RouletteState
 import people.droid.roulette.ui.theme.MyBabyPink
 
 @Composable
