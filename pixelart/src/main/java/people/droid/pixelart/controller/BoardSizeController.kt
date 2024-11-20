@@ -44,7 +44,7 @@ fun PixelSizeController(
             modifier = Modifier
                 .size(32.dp)
                 .clickable {
-                    onChangePixelBoardSize(PixelBoardActions.DECREASE_PIXEL_SIZE)
+                    onChangePixelBoardSize(PixelBoardActions.INCREASE_PIXEL_SIZE)
                 }
         )
         val pixelSize = maxPixelCount / pixel
@@ -62,7 +62,7 @@ fun PixelSizeController(
             modifier = Modifier
                 .size(32.dp)
                 .clickable {
-                    onChangePixelBoardSize(PixelBoardActions.INCREASE_PIXEL_SIZE)
+                    onChangePixelBoardSize(PixelBoardActions.DECREASE_PIXEL_SIZE)
                 }
         )
     }
