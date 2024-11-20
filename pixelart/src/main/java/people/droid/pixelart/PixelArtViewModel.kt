@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @SuppressLint("AutoboxingStateCreation")
-class MainViewModel: ViewModel() {
+class PixelArtViewModel: ViewModel() {
     val deque = ArrayDeque<Color>(18)
     val gridMap = mutableStateListOf<MutableList<Color>>()
     val pixelSize = MutableStateFlow(20)
@@ -45,6 +45,10 @@ class MainViewModel: ViewModel() {
         when (actions) {
             PixelBoardActions.INCREASE_PIXEL_SIZE -> {
                 if (pixelSize.value >= 28) return
+                else if (pixelSize.value == 2) {
+                    pixelSize.value = 4
+                    return
+                }
                 pixelSize.value += 4
             }
 

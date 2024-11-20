@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Icon
@@ -35,22 +36,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.MutableStateFlow
 import people.droid.pixelart.colorpicker.ColorPalette
 import people.droid.pixelart.colorpicker.ColorPickerDialog
 import people.droid.pixelart.controller.PixelSizeController
 import people.droid.pixelart.ui.ScaffoldWithBox
 import people.droid.pixelart.ui.theme.PixelArtMakerTheme
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(
+fun PixelArtScreen(
     colorQueue: ArrayDeque<Color>,
     gridMap: SnapshotStateList<MutableList<Color>>,
     pixelSizeFlow: MutableStateFlow<Int> = MutableStateFlow(20),
     onChangePixelBoardSize: (PixelBoardActions) -> Unit = {},
     onClearPixels: () -> Unit = {},
-    onSharePixelImage: (Bitmap) -> Unit = {}
+    onSharePixelImage: (Bitmap) -> Unit = {},
+    onClose: () -> Unit = {}
 ) {
     val showClearDialog = remember { mutableStateOf(false) }
     val selectedColor = remember { mutableStateOf(Color.White) }
@@ -64,6 +66,8 @@ fun MainScreen(
     val pixelSize = pixelSizeFlow.collectAsState()
 
     ScaffoldWithBox {
+        Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = null, tint = MaterialTheme.colorScheme.secondary, modifier = Modifier.padding(16.dp).size(30.dp).clickable { onClose() })
+
         Column(Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
             Text("Pixel", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.secondary)
             Text("by boring-km", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.secondary)
@@ -190,7 +194,7 @@ fun MainScreenLightPreview() {
                 }
                 gridMap.add(row)
             }
-            MainScreen(
+            PixelArtScreen(
                 ArrayDeque(List(18) { Color.White }),
                 gridMap,
             )
@@ -215,7 +219,7 @@ fun MainScreenDarkPreview() {
                 }
                 gridMap.add(row)
             }
-            MainScreen(
+            PixelArtScreen(
                 ArrayDeque(List(18) { Color.White }),
                 gridMap,
             )
