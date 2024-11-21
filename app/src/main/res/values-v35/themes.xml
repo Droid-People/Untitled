@@ -2,8 +2,6 @@
 <resources>
 
     <style name="Theme.Untitled" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>"
-        <item name="android:statusBarColor">#FFFFF6B3</item>
-        <item name="android:navigationBarColor">#FFFFF6B3</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 </resources>

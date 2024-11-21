@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.platform.LocalContext
@@ -21,13 +20,15 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import people.droid.untitled.R
 import people.droid.untitled.ui.theme.UntitledTheme
+import people.droid.untitled.ui.theme.YellowBackground
 
 @Composable
 fun HomeBackground() {
     Box(
         Modifier
             .fillMaxSize()
-            .background(Color(0xFFFFF6B3))) {
+            .background(YellowBackground)
+    ) {
 
         val bananaImage = ImageBitmap.imageResource(R.drawable.small_banana)
         val trash01 = ImageBitmap.imageResource(R.drawable.trash_01)

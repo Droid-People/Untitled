@@ -1,6 +1,7 @@
 package people.droid.untitled
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -8,7 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.toArgb
+import androidx.compose.runtime.LaunchedEffect
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -25,7 +26,6 @@ import people.droid.untitled.ui.EnterToLeftTransition
 import people.droid.untitled.ui.EnterToRightTransition
 import people.droid.untitled.ui.ExitToLeftTransition
 import people.droid.untitled.ui.ExitToRightTransition
-import people.droid.untitled.ui.theme.YellowBackground
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -68,19 +68,20 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+            LaunchedEffect(Unit) {
+                WindowCompat.getInsetsController(window, window.decorView).run {
+                    isAppearanceLightStatusBars = true
+                    isAppearanceLightNavigationBars = false
+                }
+            }
         }
     }
 
     @Composable
     private fun ChangeSystemBarsTheme() {
-        val barColor = YellowBackground.toArgb()
         enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.dark(
-                barColor,
-            ),
-            navigationBarStyle = SystemBarStyle.dark(
-                barColor,
-            ),
+            statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
         )
     }
 }
