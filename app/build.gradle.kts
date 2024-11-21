@@ -45,6 +45,10 @@ dependencies {
     implementation(project(":roulette"))
 
     implementation(libs.androidx.navigation.compose)
+    implementation("com.google.android.gms:play-services-ads:23.3.0")
+
+    // rememberSystemUiController
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.36.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
