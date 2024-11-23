@@ -72,9 +72,7 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(ROULETTE_ROUTE) {
                         RouletteScreen(
-                            navigate = {
-                                navController.popBackStack()
-                            },
+                            navController = navController,
                             viewModel = rouletteViewModel
                         )
                     }

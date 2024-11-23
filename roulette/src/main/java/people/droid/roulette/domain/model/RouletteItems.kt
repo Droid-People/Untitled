@@ -1,9 +1,9 @@
 package people.droid.roulette.domain.model
 
 import androidx.compose.ui.graphics.Color
-import people.droid.roulette.ui.theme.MyBlue
-import people.droid.roulette.ui.theme.MyPink
-import people.droid.roulette.ui.theme.MyYellow
+import people.droid.roulette.ui.theme.RouletteBlue
+import people.droid.roulette.ui.theme.RoulettePink
+import people.droid.roulette.ui.theme.RouletteYellow
 
 class RouletteItems private constructor(
     private val items: MutableList<RouletteItem>
@@ -24,9 +24,9 @@ class RouletteItems private constructor(
     companion object {
 
         private val colors = listOf(
-            MyYellow,
-            MyBlue,
-            MyPink,
+            RouletteYellow,
+            RouletteBlue,
+            RoulettePink,
         )
 
         fun create(number: Int): RouletteItems {

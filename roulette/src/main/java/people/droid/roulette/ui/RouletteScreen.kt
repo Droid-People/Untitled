@@ -12,6 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -29,6 +34,8 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import people.droid.roulette.ui.component.Roulette
 import people.droid.roulette.ui.component.RouletteButton
 import people.droid.roulette.domain.model.RouletteItem
@@ -37,16 +44,17 @@ import people.droid.roulette.ui.component.RouletteSettingTextField
 import people.droid.roulette.ui.model.RouletteState
 import people.droid.roulette.ui.viewmodel.RouletteViewModel
 import people.droid.roulette.ui.theme.RouletteTheme
-import people.droid.roulette.ui.theme.MyBeige
-import people.droid.roulette.ui.theme.MyBlue
-import people.droid.roulette.ui.theme.MyBrown
+import people.droid.roulette.ui.theme.RouletteBeige
+import people.droid.roulette.ui.theme.RouletteBlue
+import people.droid.roulette.ui.theme.RouletteBrown
 import kotlinx.coroutines.launch
+import people.droid.roulette.ui.theme.RoulettePink
 
 const val ROULETTE_ROUTE = "roulette"
 
 @Composable
 fun RouletteScreen(
-    navigate: () -> Unit,
+    navController: NavHostController,
     viewModel: RouletteViewModel
 ) {
     val focusManager = LocalFocusManager.current
@@ -63,6 +71,7 @@ fun RouletteScreen(
     val scope = rememberCoroutineScope()
     RouletteTheme {
         RouletteScreenUi(
+            navController = navController,
             focusManager = focusManager,
             totalNumberTextFieldValue = uiState.number,
             totalNumberChange = {
@@ -94,8 +103,10 @@ fun RouletteScreen(
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun RouletteScreenUi(
+    navController: NavHostController,
     focusManager: FocusManager,
     totalNumberTextFieldValue: Int,
     totalNumberChange: (Int) -> Unit,
@@ -117,10 +128,23 @@ private fun RouletteScreenUi(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .background(MyBeige)
+                .background(RouletteBeige)
                 .padding(innerPadding)
         ) {
+            IconButton(
+                modifier = Modifier.align(Alignment.Start),
+                onClick = { navController.popBackStack() },
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = RouletteBrown
+                )
+            }
+            RouletteTitle()
+            Spacer(modifier = Modifier.height(20.dp))
             when (state) {
+
                 RouletteState.SETTING -> {
                     TotalNumberInputScreen(number = totalNumberTextFieldValue, totalNumberChange)
                 }
@@ -154,7 +178,7 @@ private fun RouletteScreenUi(
                 RouletteState.PROGRESSING -> {
                     Text(
                         text = "Spinning in Progress...",
-                        style = MaterialTheme.typography.titleMedium.copy(color = MyBrown)
+                        style = MaterialTheme.typography.titleMedium.copy(color = RouletteBrown)
                     )
                 }
 
@@ -163,14 +187,14 @@ private fun RouletteScreenUi(
                     buildAnnotatedString {
                         withStyle(
                             style = MaterialTheme.typography.titleLarge
-                                .copy(color = MyBlue)
+                                .copy(color = RouletteBlue)
                                 .toSpanStyle(),
                         ) {
                             append(realTarget.value)
                         }
                         withStyle(
                             style = MaterialTheme.typography.titleMedium
-                                .copy(color = MyBrown)
+                                .copy(color = RouletteBrown)
                                 .toSpanStyle()
                         ) {
                             append(" : You Got It!")
@@ -183,6 +207,21 @@ private fun RouletteScreenUi(
             }
         }
     }
+}
+
+@Composable
+private fun RouletteTitle() {
+    val style = MaterialTheme.typography.headlineLarge.toSpanStyle()
+    val colors = listOf(RouletteBrown, RoulettePink, RouletteBlue)
+    Text(text =
+    buildAnnotatedString {
+        arrayOf("Spin ", "the ", "Wheel!").forEachIndexed { index, c ->
+            withStyle(style = style.copy(color = colors[index % colors.size])) {
+                append(c)
+            }
+        }
+    }
+    )
 }
 
 @Composable
@@ -203,7 +242,7 @@ private fun TotalNumberInputScreen(
         Text(
             text = "Total",
             style = MaterialTheme.typography.titleSmall,
-            color = MyBrown
+            color = RouletteBrown
         )
         Spacer(modifier = Modifier.height(5.dp))
         RouletteSettingTextField(
@@ -262,8 +301,10 @@ private fun GreetingPreview() {
     val rotation = remember {
         Animatable(0f)
     }
+    val navController = rememberNavController()
     RouletteTheme {
         RouletteScreenUi(
+            navController = navController,
             focusManager = focusManager,
             totalNumberTextFieldValue = itemNumber,
             totalNumberChange = {},

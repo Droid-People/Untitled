@@ -9,14 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import people.droid.roulette.ui.theme.MyBrown
+import people.droid.roulette.ui.theme.RouletteBrown
 
 @Composable
 fun RouletteButton(modifier: Modifier = Modifier, onClick: () -> Unit, text: String, enabled:Boolean = true) {
     Button(
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MyBrown
+            containerColor = RouletteBrown
         ),
         onClick = onClick,
         enabled = enabled

@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import people.droid.roulette.ui.theme.MyBrown
+import people.droid.roulette.ui.theme.RouletteBrown
 import people.droid.roulette.ui.theme.TextFieldBackground
 
 @Composable
@@ -65,7 +65,7 @@ fun RouletteTextFieldCharContainer(text: String, isFocused: Boolean) {
                 if (isFocused) {
                     border(
                         width = 1.5.dp,
-                        color = MyBrown,
+                        color = RouletteBrown,
                         shape = RoundedCornerShape(4.dp)
                     )
                 } else this
@@ -75,7 +75,7 @@ fun RouletteTextFieldCharContainer(text: String, isFocused: Boolean) {
         Text(
             text = text,
             style = MaterialTheme.typography.titleSmall.copy(
-                color = MyBrown
+                color = RouletteBrown
             )
         )
     }

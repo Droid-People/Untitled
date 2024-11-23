@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.graphics.shapes.CornerRounding
@@ -31,7 +32,7 @@ import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
 import people.droid.roulette.domain.model.RouletteItems
 import people.droid.roulette.ui.model.RouletteState
-import people.droid.roulette.ui.theme.MyBabyPink
+import people.droid.roulette.ui.theme.RouletteBabyPink
 
 @Composable
 fun Roulette(
@@ -43,7 +44,7 @@ fun Roulette(
 
     BoxWithConstraints {
         val degreesPerItems = items.getDegreesPerItem()
-        val size = min(this.maxHeight, this.maxWidth)
+        val size = min(this.maxHeight, this.maxWidth) - 25.dp
         Box(modifier = Modifier
             .size(size)
             .graphicsLayer {
@@ -107,7 +108,7 @@ fun Roulette(
                     drawPath(
                         roundedPolygon
                             .toPath()
-                            .asComposePath(), color = MyBabyPink
+                            .asComposePath(), color = RouletteBabyPink
                     )
                 }
 
