@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import people.droid.pixelart.PIXEL_ART_ROUTE
+import people.droid.puzzle.ui.screen.PUZZLE_ROUTE
 import people.droid.roulette.ui.ROULETTE_ROUTE
 import people.droid.untitled.ui.HomeBackground
 import people.droid.untitled.ui.theme.UntitledTheme
@@ -41,11 +42,7 @@ fun HomeScreen(navController: NavController) {
             }
             Button(
                 onClick = {
-                    //                    val intent = Intent(
-                    //                        this@MainActivity,
-                    //                        people.droid.puzzle.MainActivity::class.java
-                    //                    )
-                    //                    startActivity(intent)
+                    navController.navigate(PUZZLE_ROUTE)
                 }
             ) {
                 Text("Puzzle")

@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -30,16 +32,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import people.droid.puzzle.R
 import people.droid.puzzle.ui.component.ButtonColor
 import people.droid.puzzle.ui.component.CrayonButton
 import people.droid.puzzle.ui.component.PuzzleGridBoard
 import people.droid.puzzle.ui.component.PuzzlePiece
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+
+const val PUZZLE_ROUTE = "puzzle"
 
 @Composable
-fun PuzzleScreen(modifier: Modifier = Modifier) {
+fun PuzzleScreen(
+    modifier: Modifier = Modifier,
+    navigateBack: () -> Unit = {}
+) {
     val scope = rememberCoroutineScope()
     val density = LocalDensity.current
     val screenWidth = with(density) { LocalConfiguration.current.screenWidthDp.dp.toPx() }
@@ -61,7 +68,7 @@ fun PuzzleScreen(modifier: Modifier = Modifier) {
         0..(screenWidth - cellSize).toInt() to minHeight.toInt()..maxHeight.toInt()
     }
 
-    initBoardInfoLaunchedEffect(
+    InitBoardInfoLaunchedEffect(
         boardSize = boardSize,
         boardOffset = boardOffset,
         cellSize = cellSize
@@ -69,102 +76,114 @@ fun PuzzleScreen(modifier: Modifier = Modifier) {
         boardsInfo = info
     }
 
-    Box(modifier = modifier.fillMaxSize()) {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = R.drawable.background),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds,
-        )
+    Scaffold { innerPadding ->
         Box(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(bottom = 100.dp)
-                .onGloballyPositioned { coordinates ->
-                    val offset = coordinates.positionInParent()
-                    boardOffset = Offset(offset.x, offset.y)
-                }
+            modifier = modifier
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
-            PuzzleGridBoard(
-                offset = boardOffset,
-                boardSize = boardSize,
-                cellSize = with(density) { cellSize.toDp() }
+            Image(
+                modifier = Modifier.fillMaxSize(),
+                painter = painterResource(id = R.drawable.background),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
             )
-        }
-
-        generatePuzzlePiece(
-            start = start,
-            boardsInfo = boardsInfo,
-            cellSize = cellSize,
-            boardSize = boardSize,
-            widthRange = widthRange,
-            heightRange = heightRange,
-            zIndex = zIndex,
-            updateZIndex = { idx -> zIndex[idx] = ++highestZIndex },
-            updateMatchCount = {
-                matchCount++
-                if (matchCount == boardSize * boardSize) {
-                    scope.launch {
-                        delay(500)
-                        start = false
+            IconButton(onClick = navigateBack) {
+                Image(
+                    painter = painterResource(R.drawable.back_button),
+                    contentDescription = null
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(bottom = 100.dp)
+                    .onGloballyPositioned { coordinates ->
+                        val offset = coordinates.positionInParent()
+                        boardOffset = Offset(offset.x, offset.y)
                     }
-                }
-            },
-            onDrop = { idx, number ->
-                boardsInfo[idx].second == number
+            ) {
+                PuzzleGridBoard(
+                    offset = boardOffset,
+                    boardSize = boardSize,
+                    cellSize = with(density) { cellSize.toDp() }
+                )
             }
-        )
 
-        Column(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .onGloballyPositioned { coordinates ->
-                    val offset = coordinates.positionInParent()
-                    uiOffset = Offset(offset.x, offset.y)
+            PuzzlePieceGenerator(
+                start = start,
+                boardsInfo = boardsInfo,
+                cellSize = cellSize,
+                boardSize = boardSize,
+                widthRange = widthRange,
+                heightRange = heightRange,
+                zIndex = zIndex,
+                updateZIndex = { idx -> zIndex[idx] = ++highestZIndex },
+                updateMatchCount = {
+                    matchCount++
+                    if (matchCount == boardSize * boardSize) {
+                        scope.launch {
+                            delay(500)
+                            start = false
+                        }
+                    }
+                },
+                onDrop = { idx, number ->
+                    boardsInfo[idx].second == number
                 }
-                .padding(bottom = 30.dp)
-        ) {
-            Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                CrayonButton(
-                    width = 60,
-                    onClick = { if (boardSize > 2) boardSize -= 1 },
-                    enable = !start,
-                    color = ButtonColor.ORANGE,
-                    text = stringResource(id = R.string.minus_board_size)
-                )
-                Spacer(modifier = Modifier.size(18.dp))
-                CrayonButton(
-                    width = 60,
-                    onClick = { if (boardSize < 5) boardSize += 1 },
-                    enable = !start,
-                    color = ButtonColor.ORANGE,
-                    text = stringResource(id = R.string.plus_board_size)
-                )
-            }
-            Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                CrayonButton(
-                    onClick = {
-                        if (!start) start = true
-                        matchCount = 0
-                    },
-                    enable = !start,
-                    color = ButtonColor.BLUE,
-                    text = stringResource(id = R.string.start_button)
-                )
-                Spacer(modifier = Modifier.size(18.dp))
-                CrayonButton(
-                    onClick = { if (start) start = false },
-                    enable = start,
-                    color = ButtonColor.RED,
-                    text = stringResource(id = R.string.reset_button)
-                )
+            )
+
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .onGloballyPositioned { coordinates ->
+                        val offset = coordinates.positionInParent()
+                        uiOffset = Offset(offset.x, offset.y)
+                    }
+                    .padding(bottom = 30.dp)
+            ) {
+                Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                    CrayonButton(
+                        width = 60,
+                        onClick = { if (boardSize > 2) boardSize -= 1 },
+                        enable = !start,
+                        color = ButtonColor.ORANGE,
+                        text = stringResource(id = R.string.minus_board_size)
+                    )
+                    Spacer(modifier = Modifier.size(18.dp))
+                    CrayonButton(
+                        width = 60,
+                        onClick = { if (boardSize < 5) boardSize += 1 },
+                        enable = !start,
+                        color = ButtonColor.ORANGE,
+                        text = stringResource(id = R.string.plus_board_size)
+                    )
+                }
+                Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                    CrayonButton(
+                        onClick = {
+                            if (!start) start = true
+                            matchCount = 0
+                        },
+                        enable = !start,
+                        color = ButtonColor.BLUE,
+                        text = stringResource(id = R.string.start_button)
+                    )
+                    Spacer(modifier = Modifier.size(18.dp))
+                    CrayonButton(
+                        onClick = { if (start) start = false },
+                        enable = start,
+                        color = ButtonColor.RED,
+                        text = stringResource(id = R.string.reset_button)
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-fun initBoardInfoLaunchedEffect(
+fun InitBoardInfoLaunchedEffect(
     boardSize: Int,
     boardOffset: Offset,
     cellSize: Float,
@@ -187,7 +206,7 @@ fun initBoardInfoLaunchedEffect(
 }
 
 @Composable
-fun generatePuzzlePiece(
+fun PuzzlePieceGenerator(
     start: Boolean,
     boardsInfo: List<Pair<Offset, Int>>,
     boardSize: Int,

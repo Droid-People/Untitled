@@ -22,6 +22,8 @@ import kotlinx.coroutines.launch
 import people.droid.pixelart.PIXEL_ART_ROUTE
 import people.droid.pixelart.PixelArtScreenComposable
 import people.droid.pixelart.PixelArtViewModel
+import people.droid.puzzle.ui.screen.PUZZLE_ROUTE
+import people.droid.puzzle.ui.screen.PuzzleScreen
 import people.droid.roulette.ui.ROULETTE_ROUTE
 import people.droid.roulette.ui.RouletteScreen
 import people.droid.roulette.ui.viewmodel.RouletteViewModel
@@ -75,6 +77,15 @@ class MainActivity : ComponentActivity() {
                             navController = navController,
                             viewModel = rouletteViewModel
                         )
+                    }
+                    composable(
+                        PUZZLE_ROUTE,
+                        enterTransition = EnterToLeftTransition(),
+                        popEnterTransition = EnterToRightTransition(),
+                        exitTransition = ExitToLeftTransition(),
+                        popExitTransition = ExitToRightTransition()
+                    ) {
+                        PuzzleScreen(navigateBack = navController::popBackStack)
                     }
                 }
             }
