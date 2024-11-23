@@ -1,9 +1,5 @@
-package people.droid.roulette
+package people.droid.roulette.ui
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.background
@@ -33,7 +29,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import people.droid.roulette.ui.component.Roulette
 import people.droid.roulette.ui.component.RouletteButton
 import people.droid.roulette.domain.model.RouletteItem
@@ -41,26 +36,17 @@ import people.droid.roulette.domain.model.RouletteItems
 import people.droid.roulette.ui.component.RouletteSettingTextField
 import people.droid.roulette.ui.model.RouletteState
 import people.droid.roulette.ui.viewmodel.RouletteViewModel
-import people.droid.roulette.ui.theme.FMToyTheme
+import people.droid.roulette.ui.theme.RouletteTheme
 import people.droid.roulette.ui.theme.MyBeige
 import people.droid.roulette.ui.theme.MyBlue
 import people.droid.roulette.ui.theme.MyBrown
 import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            FMToyTheme {
-                MainScreen(viewModel())
-            }
-        }
-    }
-}
+const val ROULETTE_ROUTE = "roulette"
 
 @Composable
-fun MainScreen(
+fun RouletteScreen(
+    navigate: () -> Unit,
     viewModel: RouletteViewModel
 ) {
     val focusManager = LocalFocusManager.current
@@ -75,39 +61,41 @@ fun MainScreen(
     }
 
     val scope = rememberCoroutineScope()
+    RouletteTheme {
+        RouletteScreenUi(
+            focusManager = focusManager,
+            totalNumberTextFieldValue = uiState.number,
+            totalNumberChange = {
+                totalNumberTextFieldValue.intValue = it
+                viewModel.updateNumber(it)
+            },
+            rouletteItems = rouletteItems,
+            onItemValueUpdate = { index, value ->
+                viewModel.updateValue(index, value)
+            },
+            rotation = rotation,
+            state = state,
+            onResetButtonClick = {
+                viewModel.resetGame()
+                scope.launch {
+                    viewModel.initializeRotation()
+                }
 
-    MainScreenUi(
-        focusManager = focusManager,
-        totalNumberTextFieldValue = uiState.number,
-        totalNumberChange = {
-            totalNumberTextFieldValue.intValue = it
-            viewModel.updateNumber(it)
-        },
-        rouletteItems = rouletteItems,
-        onItemValueUpdate = { index, value ->
-            viewModel.updateValue(index, value)
-        },
-        rotation = rotation,
-        state = state,
-        onResetButtonClick = {
-            viewModel.resetGame()
-            scope.launch {
-                viewModel.initializeRotation()
-            }
+            },
+            onSpinButtonClick = {
+                scope.launch {
+                    viewModel.spin()
+                }
 
-        },
-        onSpinButtonClick = {
-            scope.launch {
-                viewModel.spin()
-            }
+            },
+            realTarget = viewModel.getRealTarget()
+        )
+    }
 
-        },
-        realTarget = viewModel.getRealTarget()
-    )
 }
 
 @Composable
-fun MainScreenUi(
+private fun RouletteScreenUi(
     focusManager: FocusManager,
     totalNumberTextFieldValue: Int,
     totalNumberChange: (Int) -> Unit,
@@ -198,7 +186,7 @@ fun MainScreenUi(
 }
 
 @Composable
-fun Modifier.addFocusCleaner(focusManager: FocusManager): Modifier {
+private fun Modifier.addFocusCleaner(focusManager: FocusManager): Modifier {
     return this.pointerInput(Unit) {
         detectTapGestures(onTap = {
             focusManager.clearFocus()
@@ -207,7 +195,7 @@ fun Modifier.addFocusCleaner(focusManager: FocusManager): Modifier {
 }
 
 @Composable
-fun TotalNumberInputScreen(
+private fun TotalNumberInputScreen(
     number: Int,
     onValueChange: (Int) -> Unit
 ) {
@@ -227,7 +215,7 @@ fun TotalNumberInputScreen(
 
 
 @Composable
-fun RotationRouletteButton(
+private fun RotationRouletteButton(
     focusManager: FocusManager,
     onClick: () -> Unit
 ) {
@@ -242,7 +230,7 @@ fun RotationRouletteButton(
 }
 
 @Composable
-fun RestartRouletteButton(
+private fun RestartRouletteButton(
     enabled: Boolean = true,
     onResetButtonClick: () -> Unit = {},
     onSpinAgainButtonClick: () -> Unit = {}
@@ -266,7 +254,7 @@ fun RestartRouletteButton(
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+private fun GreetingPreview() {
 
     val focusManager = LocalFocusManager.current
     val itemNumber = 3
@@ -274,8 +262,8 @@ fun GreetingPreview() {
     val rotation = remember {
         Animatable(0f)
     }
-    FMToyTheme {
-        MainScreenUi(
+    RouletteTheme {
+        RouletteScreenUi(
             focusManager = focusManager,
             totalNumberTextFieldValue = itemNumber,
             totalNumberChange = {},

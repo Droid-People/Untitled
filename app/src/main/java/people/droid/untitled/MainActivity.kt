@@ -22,6 +22,9 @@ import kotlinx.coroutines.launch
 import people.droid.pixelart.PIXEL_ART_ROUTE
 import people.droid.pixelart.PixelArtScreenComposable
 import people.droid.pixelart.PixelArtViewModel
+import people.droid.roulette.ui.ROULETTE_ROUTE
+import people.droid.roulette.ui.RouletteScreen
+import people.droid.roulette.ui.viewmodel.RouletteViewModel
 import people.droid.untitled.ui.EnterToLeftTransition
 import people.droid.untitled.ui.EnterToRightTransition
 import people.droid.untitled.ui.ExitToLeftTransition
@@ -36,6 +39,7 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         val pixelArtViewModel = ViewModelProvider(this@MainActivity)[PixelArtViewModel::class.java]
+        val rouletteViewModel = ViewModelProvider(this@MainActivity)[RouletteViewModel::class.java]
 
         lifecycleScope.launch(Dispatchers.IO) {
             MobileAds.initialize(this@MainActivity)
@@ -65,6 +69,14 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = ExitToRightTransition()
                     ) {
                         PixelArtScreenComposable(navController, pixelArtViewModel)
+                    }
+                    composable(ROULETTE_ROUTE) {
+                        RouletteScreen(
+                            navigate = {
+                                navController.popBackStack()
+                            },
+                            viewModel = rouletteViewModel
+                        )
                     }
                 }
             }
