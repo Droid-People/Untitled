@@ -58,7 +58,7 @@ fun PixelClearCheckDialog(showClearDialog: MutableState<Boolean> = mutableStateO
                         onConfirm()
                     }
                 ) {
-                    Icon(Icons.Rounded.Check, contentDescription = null, tint = Color.Black, modifier = Modifier.size(40.dp))
+                    Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.secondary, modifier = Modifier.size(40.dp))
                 }
             }
         }
@@ -69,6 +69,15 @@ fun PixelClearCheckDialog(showClearDialog: MutableState<Boolean> = mutableStateO
 @Preview(showBackground = true)
 fun PixelClearCheckDialogPreview() {
     PixelArtMakerTheme {
+        PixelClearCheckDialog(showClearDialog = remember { mutableStateOf(true) })
+    }
+}
+
+
+@Composable
+@Preview(showBackground = true)
+fun PixelClearCheckDialogDarkPreview() {
+    PixelArtMakerTheme(darkTheme = true) {
         PixelClearCheckDialog(showClearDialog = remember { mutableStateOf(true) })
     }
 }
