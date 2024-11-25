@@ -1,5 +1,6 @@
 package people.droid.puzzle.ui.screen
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,13 +50,20 @@ fun PuzzleScreen(
 ) {
     val scope = rememberCoroutineScope()
     val density = LocalDensity.current
-    val screenWidth = with(density) { LocalConfiguration.current.screenWidthDp.dp.toPx() }
+    val configuration = LocalConfiguration.current
+    val isLandscape = isLandscape()
+    val adjustedScreenWidth = with(density) {
+        if (isLandscape) configuration.screenHeightDp.dp.toPx()
+        else configuration.screenWidthDp.dp.toPx()
+    }
+    val screenWidth = with(density) { configuration.screenWidthDp.dp.toPx() }
+
     var boardOffset by remember { mutableStateOf(Offset.Zero) }
     var uiOffset by remember { mutableStateOf(Offset.Zero) }
 
     var boardSize by remember { mutableIntStateOf(3) }
     var boardsInfo by remember { mutableStateOf(emptyList<Pair<Offset, Int>>()) }
-    val cellSize = screenWidth / (boardSize * 2)
+    val cellSize = adjustedScreenWidth / (boardSize * 2)
 
     var highestZIndex by remember { mutableFloatStateOf(0f) }
     val zIndex = remember { mutableStateMapOf<Int, Float>() }
@@ -64,8 +72,10 @@ fun PuzzleScreen(
 
     val (widthRange, heightRange) = remember(uiOffset) {
         val minHeight = boardOffset.y + cellSize * boardSize
-        val maxHeight = uiOffset.y - cellSize
-        0..(screenWidth - cellSize).toInt() to minHeight.toInt()..maxHeight.toInt()
+        val adjustedMaxHeight = uiOffset.y - cellSize
+        val maxHeight = if (adjustedMaxHeight < minHeight) minHeight else adjustedMaxHeight
+        val maxWidth = screenWidth - cellSize
+        0..maxWidth.toInt() to minHeight.toInt()..maxHeight.toInt()
     }
 
     InitBoardInfoLaunchedEffect(
@@ -233,6 +243,12 @@ fun PuzzlePieceGenerator(
             )
         }
     }
+}
+
+@Composable
+fun isLandscape(): Boolean {
+    val configuration = LocalConfiguration.current
+    return configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 }
 
 @Preview(showBackground = true)
