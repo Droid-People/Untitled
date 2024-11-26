@@ -12,13 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.MobileAds
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import people.droid.pixelart.PIXEL_ART_ROUTE
 import people.droid.pixelart.PixelArtScreenComposable
 import people.droid.pixelart.PixelArtViewModel
@@ -32,20 +29,18 @@ import people.droid.untitled.ui.EnterToRightTransition
 import people.droid.untitled.ui.ExitToLeftTransition
 import people.droid.untitled.ui.ExitToRightTransition
 
+
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 시스템 창 삽입 여부를 비활성화
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         val pixelArtViewModel = ViewModelProvider(this@MainActivity)[PixelArtViewModel::class.java]
         val rouletteViewModel = ViewModelProvider(this@MainActivity)[RouletteViewModel::class.java]
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            MobileAds.initialize(this@MainActivity)
-        }
+        MobileAds.initialize(this@MainActivity)
 
         enableEdgeToEdge()
 

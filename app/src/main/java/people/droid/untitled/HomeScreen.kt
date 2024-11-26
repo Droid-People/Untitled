@@ -46,7 +46,9 @@ fun HomeScreen(navController: NavController) {
             }) {
                 Text("Puzzle")
             }
-            AndroidView(modifier = Modifier.height(50.dp).fillMaxWidth(), factory = {
+            AndroidView(modifier = Modifier
+                .height(50.dp)
+                .fillMaxWidth(), factory = {
                 AdView(it).apply {
                     setAdSize(AdSize.BANNER)
                     @Suppress("KotlinConstantConditions")
