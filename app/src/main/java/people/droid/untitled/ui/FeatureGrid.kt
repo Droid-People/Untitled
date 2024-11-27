@@ -1,5 +1,7 @@
 package people.droid.untitled.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,12 +14,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,10 +31,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import people.droid.untitled.R
 import people.droid.untitled.ui.theme.UntitledTheme
+import people.droid.untitled.ui.theme.YellowBackground
 
 data class Feature(
     val title: String,
-    val route: String
+    val route: String,
 )
 
 @Composable
@@ -64,7 +71,12 @@ fun FeatureItem(
             .clickable { onClick() }
     ) {
         Icon(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .clip(CircleShape)
+                .background(YellowBackground)
+                .border(2.dp, Color.Black, CircleShape)
+                .padding(8.dp),
             painter = painterResource(R.drawable.trash_01),
             contentDescription = null
         )
@@ -74,7 +86,8 @@ fun FeatureItem(
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally),
             text = title,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
         )
     }
 }

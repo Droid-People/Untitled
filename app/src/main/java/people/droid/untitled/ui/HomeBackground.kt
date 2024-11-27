@@ -31,8 +31,6 @@ fun HomeBackground() {
     ) {
 
         val bananaImage = ImageBitmap.imageResource(R.drawable.small_banana)
-//        val trash01 = ImageBitmap.imageResource(R.drawable.trash_01)
-//        val trash02 = ImageBitmap.imageResource(R.drawable.trash_02)
 
         val infiniteTransition = rememberInfiniteTransition(label = "banana")
         // rotation
@@ -65,35 +63,12 @@ fun HomeBackground() {
                         drawImage(
                             image  =  bananaImage,
                             topLeft = Offset(it.x - bananaImage.width/2, it.y - bananaImage.height/2),
+                            alpha = 0.5f
                         )
                         restore()
                     }
                 }
             }
-//            randomOffsetList.subList(12, 16).forEach {
-//                with(drawContext.canvas) {
-//                    save()
-//                    rotate(rotation, pivot = it) {
-//                        drawImage(
-//                            image  =  trash01,
-//                            topLeft = Offset(it.x - bananaImage.width/2, it.y - bananaImage.height/2),
-//                        )
-//                        restore()
-//                    }
-//                }
-//            }
-//            randomOffsetList.subList(16, 20).forEach {
-//                with(drawContext.canvas) {
-//                    save()
-//                    rotate(rotation, pivot = it) {
-//                        drawImage(
-//                            image  =  trash02,
-//                            topLeft = Offset(it.x - bananaImage.width/2, it.y - bananaImage.height/2),
-//                        )
-//                        restore()
-//                    }
-//                }
-//            }
         }
     }
 }
