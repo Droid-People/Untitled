@@ -24,6 +24,8 @@ import people.droid.puzzle.ui.screen.PuzzleScreen
 import people.droid.roulette.ui.ROULETTE_ROUTE
 import people.droid.roulette.ui.RouletteScreen
 import people.droid.roulette.ui.viewmodel.RouletteViewModel
+import people.droid.untitled.ui.DEVELOPERS_ROUTE
+import people.droid.untitled.ui.DeveloperScreen
 import people.droid.untitled.ui.EnterToLeftTransition
 import people.droid.untitled.ui.EnterToRightTransition
 import people.droid.untitled.ui.ExitToLeftTransition
@@ -81,6 +83,15 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = ExitToRightTransition()
                     ) {
                         PuzzleScreen(navigateBack = navController::popBackStack)
+                    }
+                    composable(
+                        DEVELOPERS_ROUTE,
+                        enterTransition = EnterToLeftTransition(),
+                        popEnterTransition = EnterToRightTransition(),
+                        exitTransition = ExitToLeftTransition(),
+                        popExitTransition = ExitToRightTransition()
+                    ) {
+                        DeveloperScreen(navigateBack = navController::popBackStack)
                     }
                 }
             }
