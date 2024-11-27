@@ -54,33 +54,28 @@ fun FeatureGrid(
 
 @Composable
 fun FeatureItem(
-    isEnabled: Boolean = true,
     onClick: () -> Unit = {},
     title: String = "",
 ) {
-    if (isEnabled) {
-        Column(
+    Column(
+        modifier = Modifier
+            .width(80.dp)
+            .padding(vertical = 12.dp)
+            .clickable { onClick() }
+    ) {
+        Icon(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            painter = painterResource(R.drawable.trash_01),
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.height(6.dp))
+        Text(
             modifier = Modifier
-                .width(80.dp)
-                .padding(vertical = 8.dp)
-                .clickable { onClick() }
-        ) {
-            Icon(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                painter = painterResource(R.drawable.trash_01),
-                contentDescription = null
-            )
-            Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally),
-                text = title,
-                textAlign = TextAlign.Center
-            )
-        }
-    } else {
-        Spacer(modifier = Modifier.width(85.dp))
+                .fillMaxWidth()
+                .align(Alignment.CenterHorizontally),
+            text = title,
+            textAlign = TextAlign.Center
+        )
     }
 }
 
