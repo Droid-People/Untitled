@@ -50,8 +50,8 @@ fun DeveloperScreen(navigateBack: () -> Unit = {}) {
                     .padding(horizontal = 16.dp)
             ) {
 //                Profile("kangmin", )
-//                Profile("hyegyeong", )
-                Profile("yewon", R.drawable.yewon_profile)
+                Profile("whk06061", R.drawable.hyegyeong_profile)
+                Profile("yewon-yw", R.drawable.yewon_profile)
             }
         }
     }
@@ -71,7 +71,7 @@ fun Profile(name: String, imageResId: Int) {
                 .size(80.dp),
             painter = painterResource(imageResId),
             contentDescription = null,
-            contentScale = ContentScale.Fit
+            contentScale = ContentScale.Crop
         )
         Text(text = name, fontSize = 30.sp)
         Text(text = "Android Developer", fontSize = 12.sp)
