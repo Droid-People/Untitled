@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -19,8 +21,15 @@ android {
     }
 
     signingConfigs {
-        getByName("debug") {
-            storeFile = file("./keystore/debug.keystore")
+        create("release") {
+            val keystorePropertiesFile = rootProject.file("app/keystore/keystore.properties")
+            val keystoreProperties = Properties().apply {
+                load(keystorePropertiesFile.reader())
+            }
+            storeFile = file(keystoreProperties["storePath"].toString())
+            storePassword = keystoreProperties["storePassword"].toString()
+            keyAlias = keystoreProperties["keyAlias"].toString()
+            keyPassword = keystoreProperties["keyPassword"].toString()
         }
     }
 
@@ -31,10 +40,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
         getByName("debug") {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
