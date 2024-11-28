@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -103,7 +102,6 @@ fun RouletteScreen(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun RouletteScreenUi(
     navController: NavHostController,
@@ -205,6 +203,12 @@ private fun RouletteScreenUi(
 
                 }
             }
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                modifier = Modifier.padding(bottom = 30.dp),
+                text = "by whk06061",
+                style = MaterialTheme.typography.titleSmall.copy(color = RouletteBlue)
+            )
         }
     }
 }
