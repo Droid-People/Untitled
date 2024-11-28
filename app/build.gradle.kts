@@ -1,4 +1,14 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.Properties
+import java.util.TimeZone
+
+
+val myDirName = SimpleDateFormat("yyyyMMdd")
+myDirName.timeZone = TimeZone.getDefault()
+val copyDir = File("../../../Release/", myDirName.format(Date()))
+
 
 plugins {
     alias(libs.plugins.android.application)
@@ -15,7 +25,7 @@ android {
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,6 +40,35 @@ android {
             storePassword = keystoreProperties["storePassword"].toString()
             keyAlias = keystoreProperties["keyAlias"].toString()
             keyPassword = keystoreProperties["keyPassword"].toString()
+        }
+    }
+
+    applicationVariants.configureEach {
+        outputs.all { variant ->
+            if (variant.outputFile.name.contains("release")) {
+                val taskSuffix =
+                    name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                val assembleTaskName = "bundle$taskSuffix"
+                val task = tasks.findByName(assembleTaskName)
+                if (task != null) {
+                    val copyTask = tasks.create("archive${taskSuffix}Copy", Copy::class) {
+                        description = "앱번들 복사하기"
+                        println(description)
+                        from("build/outputs/bundle/release/app-release.aab")
+                        into(copyDir.absolutePath)
+                        include("*.aab")
+                        includeEmptyDirs = false
+                        rename { fileName ->
+                            fileName.replace(
+                                "app-release.aab",
+                                "Untitled_${versionName}.aab"
+                            )
+                        }
+                    }
+                    tasks.getByName(assembleTaskName).finalizedBy(copyTask)
+                }
+            }
+            return@all true
         }
     }
 
