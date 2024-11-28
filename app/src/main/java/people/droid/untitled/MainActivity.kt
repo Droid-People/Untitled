@@ -69,7 +69,13 @@ class MainActivity : ComponentActivity() {
                     ) {
                         PixelArtScreenComposable(navController, pixelArtViewModel)
                     }
-                    composable(ROULETTE_ROUTE) {
+                    composable(
+                        ROULETTE_ROUTE,
+                        enterTransition = EnterToLeftTransition(),
+                        popEnterTransition = EnterToRightTransition(),
+                        exitTransition = ExitToLeftTransition(),
+                        popExitTransition = ExitToRightTransition()
+                    ) {
                         RouletteScreen(
                             navController = navController,
                             viewModel = rouletteViewModel
