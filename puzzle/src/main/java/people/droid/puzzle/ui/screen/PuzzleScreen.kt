@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
@@ -31,8 +34,10 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import people.droid.puzzle.R
@@ -40,6 +45,7 @@ import people.droid.puzzle.ui.component.ButtonColor
 import people.droid.puzzle.ui.component.CrayonButton
 import people.droid.puzzle.ui.component.PuzzleGridBoard
 import people.droid.puzzle.ui.component.PuzzlePiece
+import people.droid.puzzle.ui.theme.Typography
 
 const val PUZZLE_ROUTE = "puzzle"
 
@@ -98,12 +104,25 @@ fun PuzzleScreen(
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
             )
-            IconButton(onClick = navigateBack) {
-                Image(
-                    painter = painterResource(R.drawable.back_button),
-                    contentDescription = null
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                IconButton(onClick = navigateBack) {
+                    Image(
+                        painter = painterResource(R.drawable.back_button),
+                        contentDescription = null
+                    )
+                }
+                Text(
+                    modifier = Modifier.fillMaxWidth().padding(end = 16.dp).align(Alignment.CenterVertically),
+                    text = "by yewon-yw",
+                    style = Typography.bodyMedium,
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    textAlign = TextAlign.End,
                 )
             }
+
             Box(
                 modifier = Modifier
                     .align(Alignment.Center)
