@@ -64,12 +64,7 @@ fun HomeScreen(navController: NavController) {
                 factory = {
                     AdView(it).apply {
                         setAdSize(AdSize.BANNER)
-                        @Suppress("KotlinConstantConditions")
-                        if (BuildConfig.BUILD_TYPE == "debug") {
-                            adUnitId = "ca-app-pub-3940256099942544/6300978111"
-                        } else {
-                            adUnitId = "ca-app-pub-4452713350716636/7691375888"
-                        }
+                        setBannerAdUnitId()
                         loadAd(AdRequest.Builder().build())
                     }
                 },
@@ -78,5 +73,13 @@ fun HomeScreen(navController: NavController) {
                 }
             )
         }
+    }
+}
+
+private fun AdView.setBannerAdUnitId() {
+    adUnitId = if (BuildConfig.DEBUG) {
+        "ca-app-pub-3940256099942544/6300978111"
+    } else {
+        "ca-app-pub-4452713350716636/7691375888"
     }
 }
