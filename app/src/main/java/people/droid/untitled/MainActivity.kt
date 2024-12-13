@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -24,12 +25,17 @@ import people.droid.puzzle.ui.screen.PuzzleScreen
 import people.droid.roulette.ui.ROULETTE_ROUTE
 import people.droid.roulette.ui.RouletteScreen
 import people.droid.roulette.ui.viewmodel.RouletteViewModel
+import people.droid.untitled.data.FirebaseDB
+import people.droid.untitled.data.RemoteFeedbackRepository
 import people.droid.untitled.ui.DEVELOPERS_ROUTE
 import people.droid.untitled.ui.DeveloperScreen
 import people.droid.untitled.ui.EnterToLeftTransition
 import people.droid.untitled.ui.EnterToRightTransition
 import people.droid.untitled.ui.ExitToLeftTransition
 import people.droid.untitled.ui.ExitToRightTransition
+import people.droid.untitled.ui.FEEDBACK_ROUTE
+import people.droid.untitled.ui.FeedbackScreen
+import people.droid.untitled.ui.FeedbackViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -41,6 +47,13 @@ class MainActivity : ComponentActivity() {
 
         val pixelArtViewModel = ViewModelProvider(this@MainActivity)[PixelArtViewModel::class.java]
         val rouletteViewModel = ViewModelProvider(this@MainActivity)[RouletteViewModel::class.java]
+        val feedbackViewModel = ViewModelProvider.create(
+            this@MainActivity,
+            FeedbackViewModel.Factory,
+            MutableCreationExtras().apply {
+                set(FeedbackViewModel.FEEDBACK_REPOSITORY_KEY, RemoteFeedbackRepository(FirebaseDB()))
+            }
+        )[FeedbackViewModel::class.java]
 
         MobileAds.initialize(this@MainActivity)
 
@@ -98,6 +111,11 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = ExitToRightTransition()
                     ) {
                         DeveloperScreen(navigateBack = navController::popBackStack)
+                    }
+                    composable(
+                        FEEDBACK_ROUTE
+                    ) {
+                        FeedbackScreen(feedbackViewModel)
                     }
                 }
             }

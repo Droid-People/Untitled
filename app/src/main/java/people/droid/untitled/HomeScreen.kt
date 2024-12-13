@@ -22,6 +22,7 @@ import people.droid.pixelart.PIXEL_ART_ROUTE
 import people.droid.puzzle.ui.screen.PUZZLE_ROUTE
 import people.droid.roulette.ui.ROULETTE_ROUTE
 import people.droid.untitled.ui.DEVELOPERS_ROUTE
+import people.droid.untitled.ui.FEEDBACK_ROUTE
 import people.droid.untitled.ui.Feature
 import people.droid.untitled.ui.FeatureGrid
 import people.droid.untitled.ui.HomeBackground
@@ -35,7 +36,8 @@ fun HomeScreen(navController: NavController) {
         Feature(title = "Pixel Art Maker", route = PIXEL_ART_ROUTE),
         Feature(title = "Roulette", route = ROULETTE_ROUTE),
         Feature(title = "Puzzle", route = PUZZLE_ROUTE),
-        Feature(title = "Developers", route = DEVELOPERS_ROUTE)
+        Feature(title = "Developers", route = DEVELOPERS_ROUTE),
+        Feature(title = "Your Ideas", route = FEEDBACK_ROUTE)
     )
 
     UntitledTheme {

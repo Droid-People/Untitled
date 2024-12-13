@@ -120,6 +120,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
 
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
