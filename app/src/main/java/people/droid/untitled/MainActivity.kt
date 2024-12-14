@@ -24,6 +24,9 @@ import people.droid.puzzle.ui.screen.PuzzleScreen
 import people.droid.roulette.ui.ROULETTE_ROUTE
 import people.droid.roulette.ui.RouletteScreen
 import people.droid.roulette.ui.viewmodel.RouletteViewModel
+import people.droid.untitled.release_note.RELEASE_NOTES_ROUTE
+import people.droid.untitled.release_note.ReleaseNoteScreenComposable
+import people.droid.untitled.release_note.ReleaseNoteViewModel
 import people.droid.untitled.ui.DEVELOPERS_ROUTE
 import people.droid.untitled.ui.DeveloperScreen
 import people.droid.untitled.ui.EnterToLeftTransition
@@ -41,6 +44,7 @@ class MainActivity : ComponentActivity() {
 
         val pixelArtViewModel = ViewModelProvider(this@MainActivity)[PixelArtViewModel::class.java]
         val rouletteViewModel = ViewModelProvider(this@MainActivity)[RouletteViewModel::class.java]
+        val releaseNoteViewModel = ViewModelProvider(this@MainActivity)[ReleaseNoteViewModel::class.java]
 
         MobileAds.initialize(this@MainActivity)
 
@@ -58,7 +62,7 @@ class MainActivity : ComponentActivity() {
                         exitTransition = ExitToLeftTransition(),
                         popExitTransition = ExitToRightTransition()
                     ) {
-                        HomeScreen(navController)
+                        HomeScreen(navController::navigate)
                     }
                     composable(
                         PIXEL_ART_ROUTE,
@@ -98,6 +102,17 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = ExitToRightTransition()
                     ) {
                         DeveloperScreen(navigateBack = navController::popBackStack)
+                    }
+                    composable(
+                        RELEASE_NOTES_ROUTE,
+                        enterTransition = EnterToLeftTransition(),
+                        popEnterTransition = EnterToRightTransition(),
+                        exitTransition = ExitToLeftTransition(),
+                        popExitTransition = ExitToRightTransition()
+                    ) {
+                        ReleaseNoteScreenComposable(
+                            viewModel = releaseNoteViewModel
+                        )
                     }
                 }
             }
