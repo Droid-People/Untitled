@@ -2,6 +2,7 @@ package people.droid.untitled.ui
 
 import android.content.Context
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -46,10 +47,14 @@ import people.droid.untitled.ui.theme.YellowBackground
 const val FEEDBACK_ROUTE = "feedback"
 
 @Composable
-fun FeedbackScreen(viewModel: FeedbackViewModel) {
+fun FeedbackScreen(viewModel: FeedbackViewModel, popBackStack:()->Unit) {
     var text by remember { mutableStateOf("") }
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
     val context = LocalContext.current
+    BackHandler {
+        viewModel.resetUiState()
+        popBackStack()
+    }
     FeedbackScreenUI(
         context,
         uiState,
@@ -79,6 +84,7 @@ fun FeedbackScreenUI(
                 Toast.makeText(context, "Submission failed... Please try again.", Toast.LENGTH_SHORT).show()
                 true
             }
+
             else -> true
         }
     }
@@ -142,7 +148,11 @@ fun SendMessageScreen(message: String = "", onTextChange: (String) -> Unit = {},
 
 @Composable
 fun CompleteSendMessageScreen(onSendMoreButtonClicked: () -> Unit = {}) {
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
         Spacer(Modifier.height(50.dp))
         Text("Successfully sent!", style = MaterialTheme.typography.headlineLarge)
         Image(
@@ -175,7 +185,7 @@ fun SendMessageScreenPreview() {
 @Preview(showBackground = true)
 fun CompleteSendMessageScreenPreview() {
     UntitledTheme {
-        Box(modifier = Modifier.fillMaxSize()){
+        Box(modifier = Modifier.fillMaxSize()) {
             CompleteSendMessageScreen()
         }
 

@@ -130,7 +130,7 @@ class MainActivity : ComponentActivity() {
                     composable(
                         FEEDBACK_ROUTE
                     ) {
-                        FeedbackScreen(feedbackViewModel)
+                        FeedbackScreen(feedbackViewModel, navController::popBackStack)
                     }
                 }
             }
