@@ -27,8 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import people.droid.untitled.R
 import people.droid.untitled.ui.theme.UntitledTheme
 import people.droid.untitled.ui.theme.YellowBackground
@@ -42,7 +40,7 @@ data class Feature(
 fun FeatureGrid(
     modifier: Modifier = Modifier,
     features: List<Feature>,
-    navController: NavController,
+    onNavigate: (String) -> Unit = {},
 ) {
     LazyVerticalGrid(
         modifier = modifier,
@@ -52,7 +50,7 @@ fun FeatureGrid(
     ) {
         items(features) { feature ->
             FeatureItem(
-                onClick = { navController.navigate(feature.route) },
+                onClick = { onNavigate(feature.route) },
                 title = feature.title
             )
         }
@@ -103,7 +101,6 @@ fun FeatureGridPreview() {
                 Feature("feature3", "feature"),
                 Feature("feature4", "feature")
             ),
-            navController = rememberNavController()
         )
     }
 }

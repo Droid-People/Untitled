@@ -14,6 +14,13 @@ val StoryMilkyFontFamilyBold = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
+    titleLarge = TextStyle(
+        fontFamily = StoryMilkyFontFamilyBold,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 40.sp,
+        lineHeight = 48.sp,
+        letterSpacing = 0.15.sp
+    ),
     headlineLarge = TextStyle(
         fontFamily = StoryMilkyFontFamilyBold,
         fontWeight = FontWeight.ExtraBold,
