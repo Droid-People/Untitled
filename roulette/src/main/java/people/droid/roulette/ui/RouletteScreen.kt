@@ -33,8 +33,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import people.droid.roulette.ui.component.Roulette
 import people.droid.roulette.ui.component.RouletteButton
 import people.droid.roulette.domain.model.RouletteItem
@@ -53,7 +51,7 @@ const val ROULETTE_ROUTE = "roulette"
 
 @Composable
 fun RouletteScreen(
-    navController: NavHostController,
+    popBackStack: () -> Unit,
     viewModel: RouletteViewModel
 ) {
     val focusManager = LocalFocusManager.current
@@ -70,7 +68,7 @@ fun RouletteScreen(
     val scope = rememberCoroutineScope()
     RouletteTheme {
         RouletteScreenUi(
-            navController = navController,
+            popBackStack = popBackStack,
             focusManager = focusManager,
             totalNumberTextFieldValue = uiState.number,
             totalNumberChange = {
@@ -104,7 +102,7 @@ fun RouletteScreen(
 
 @Composable
 private fun RouletteScreenUi(
-    navController: NavHostController,
+    popBackStack: () -> Unit,
     focusManager: FocusManager,
     totalNumberTextFieldValue: Int,
     totalNumberChange: (Int) -> Unit,
@@ -131,7 +129,7 @@ private fun RouletteScreenUi(
         ) {
             IconButton(
                 modifier = Modifier.align(Alignment.Start),
-                onClick = { navController.popBackStack() },
+                onClick = popBackStack,
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -305,10 +303,9 @@ private fun GreetingPreview() {
     val rotation = remember {
         Animatable(0f)
     }
-    val navController = rememberNavController()
     RouletteTheme {
         RouletteScreenUi(
-            navController = navController,
+            popBackStack = {},
             focusManager = focusManager,
             totalNumberTextFieldValue = itemNumber,
             totalNumberChange = {},

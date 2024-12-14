@@ -94,7 +94,7 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = ExitToRightTransition()
                     ) {
                         RouletteScreen(
-                            navController = navController,
+                            popBackStack = navController::popBackStack,
                             viewModel = rouletteViewModel
                         )
                     }
