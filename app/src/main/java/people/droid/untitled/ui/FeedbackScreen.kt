@@ -110,7 +110,7 @@ fun FeedbackScreenUI(
 fun SendMessageScreen(message: String = "", onTextChange: (String) -> Unit = {}, onSendButtonClicked: () -> Unit = {}) {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(Modifier.height(50.dp))
-        Text("Your Ideas", style = MaterialTheme.typography.headlineLarge)
+        Text("Your Ideas", style = MaterialTheme.typography.titleLarge)
         Text(
             "Let us know what features you'd like to see!\nWe'll do our best to add them!",
             textAlign = TextAlign.Center

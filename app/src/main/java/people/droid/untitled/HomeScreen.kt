@@ -42,7 +42,7 @@ fun HomeScreen(onNavigate: (String) -> Unit = {}) {
         Feature(title = "Roulette", route = ROULETTE_ROUTE),
         Feature(title = "Puzzle", route = PUZZLE_ROUTE),
         Feature(title = "Developers", route = DEVELOPERS_ROUTE),
-        Feature(title = "Release Notes", route = RELEASE_NOTES_ROUTE)
+        Feature(title = "Release Notes", route = RELEASE_NOTES_ROUTE),
         Feature(title = "Your Ideas", route = FEEDBACK_ROUTE)
     )
 
