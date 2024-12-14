@@ -105,6 +105,7 @@ dependencies {
     implementation(project(":pixelart"))
     implementation(project(":puzzle"))
     implementation(project(":roulette"))
+    implementation(project(":ads"))
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.play.services.ads)

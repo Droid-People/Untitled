@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ads</string>
+    <string name="support_us">Support Us!!</string>
+    <string name="app_icon_description">app icon</string>
+    <string name="install_btn">install</string>
+    <string name="fail_to_load">fail to load</string>
+</resources>
