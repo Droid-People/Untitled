@@ -9,9 +9,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -39,7 +44,7 @@ import people.droid.untitled.ui.theme.UntitledTheme
 const val RELEASE_NOTES_ROUTE = "release_notes"
 
 @Composable
-fun ReleaseNoteScreenComposable(viewModel: ReleaseNoteViewModel) {
+fun ReleaseNoteScreenComposable(viewModel: ReleaseNoteViewModel, navigateBack: () -> Unit = {}) {
 
     LaunchedEffect(Unit) {
         viewModel.loadReleaseNotes()
@@ -49,17 +54,26 @@ fun ReleaseNoteScreenComposable(viewModel: ReleaseNoteViewModel) {
 
     UntitledTheme {
         ReleaseNoteScreen(
-            releaseNoteState = releaseNoteState
+            releaseNoteState = releaseNoteState,
+            navigateBack = navigateBack
         )
     }
 }
 
 @Composable
-fun ReleaseNoteScreen(releaseNoteState: ReleaseNoteState) {
+fun ReleaseNoteScreen(releaseNoteState: ReleaseNoteState, navigateBack: () -> Unit = {}) {
     val releaseNotes = releaseNoteState.releaseNotes
     val errorMessage = releaseNoteState.errorMessage
     Scaffold {
         HomeBackground(true)
+        IconButton(onClick = navigateBack) {
+            Icon(
+                modifier = Modifier.size(30.dp),
+                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.secondary
+            )
+        }
         Box(
             modifier = Modifier
                 .padding(it)

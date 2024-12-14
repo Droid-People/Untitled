@@ -124,11 +124,16 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = ExitToRightTransition()
                     ) {
                         ReleaseNoteScreenComposable(
-                            viewModel = releaseNoteViewModel
+                            viewModel = releaseNoteViewModel,
+                            navigateBack = navController::popBackStack
                         )
                     }
                     composable(
-                        FEEDBACK_ROUTE
+                        FEEDBACK_ROUTE,
+                        enterTransition = EnterToLeftTransition(),
+                        popEnterTransition = EnterToRightTransition(),
+                        exitTransition = ExitToLeftTransition(),
+                        popExitTransition = ExitToRightTransition()
                     ) {
                         FeedbackScreen(feedbackViewModel, navController::popBackStack)
                     }
