@@ -5,7 +5,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import people.droid.ads.ui.screen.noRippleClickable
 import people.droid.common.theme.UntitledTheme
 import people.droid.untitled.R
 
@@ -62,30 +62,29 @@ fun DeveloperScreen(navigateBack: () -> Unit = {}) {
                         .align(Alignment.Center)
                         .padding(horizontal = 16.dp)
                 ) {
-                    val durationState1 = remember { mutableStateOf(3000) }
-                    val durationState2 = remember { mutableStateOf(3000) }
-                    val durationState3 = remember { mutableStateOf(3000) }
+                    val durationState1 = remember { mutableStateOf(3025) }
+                    val durationState2 = remember { mutableStateOf(3025) }
+                    val durationState3 = remember { mutableStateOf(3025) }
                     Profile("boring-km", R.drawable.star_butterfly, 0, durationState1) {
-                        durationState1.value -= 100
-                        if (durationState1.value < 100) {
-                            durationState1.value = 3000
-                        }
+                        accelerateProfile(durationState1)
                     }
                     Profile("whk06061", R.drawable.hyegyeong_profile, 120, durationState2) {
-                        durationState2.value -= 100
-                        if (durationState2.value < 100) {
-                            durationState2.value = 3000
-                        }
+                        accelerateProfile(durationState2)
                     }
                     Profile("yewon-yw", R.drawable.yewon_profile, 240, durationState3) {
-                        durationState3.value -= 100
-                        if (durationState3.value < 100) {
-                            durationState3.value = 3000
-                        }
+                        accelerateProfile(durationState3)
                     }
                 }
             }
         }
+    }
+}
+
+
+private fun accelerateProfile(durationState1: MutableState<Int>) {
+    durationState1.value -= 300
+    if (durationState1.value < 25) {
+        durationState1.value = 3025
     }
 }
 
@@ -100,10 +99,7 @@ fun Profile(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp)
-            .clickable {
-                onDurationChange()
-            },
+            .padding(vertical = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val rotation = remember { Animatable(initialRotationValue.toFloat()) }
@@ -122,7 +118,10 @@ fun Profile(
             modifier = Modifier
                 .rotate(rotation.value)
                 .clip(RoundedCornerShape(45.dp))
-                .size(120.dp),
+                .size(120.dp)
+                .noRippleClickable {
+                    onDurationChange()
+                },
             painter = painterResource(imageResId),
             contentDescription = null,
             contentScale = ContentScale.Crop,
