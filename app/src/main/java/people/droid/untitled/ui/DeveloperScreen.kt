@@ -1,11 +1,11 @@
 package people.droid.untitled.ui
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +21,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -59,9 +62,27 @@ fun DeveloperScreen(navigateBack: () -> Unit = {}) {
                         .align(Alignment.Center)
                         .padding(horizontal = 16.dp)
                 ) {
-                    Profile("boring-km", R.drawable.star_butterfly, 0)
-                    Profile("whk06061", R.drawable.hyegyeong_profile, 120)
-                    Profile("yewon-yw", R.drawable.yewon_profile, 240)
+                    val durationState1 = remember { mutableStateOf(3000) }
+                    val durationState2 = remember { mutableStateOf(3000) }
+                    val durationState3 = remember { mutableStateOf(3000) }
+                    Profile("boring-km", R.drawable.star_butterfly, 0, durationState1) {
+                        durationState1.value -= 100
+                        if (durationState1.value < 100) {
+                            durationState1.value = 3000
+                        }
+                    }
+                    Profile("whk06061", R.drawable.hyegyeong_profile, 120, durationState2) {
+                        durationState2.value -= 100
+                        if (durationState2.value < 100) {
+                            durationState2.value = 3000
+                        }
+                    }
+                    Profile("yewon-yw", R.drawable.yewon_profile, 240, durationState3) {
+                        durationState3.value -= 100
+                        if (durationState3.value < 100) {
+                            durationState3.value = 3000
+                        }
+                    }
                 }
             }
         }
@@ -69,29 +90,37 @@ fun DeveloperScreen(navigateBack: () -> Unit = {}) {
 }
 
 @Composable
-fun Profile(name: String, imageResId: Int, initialRotationValue: Int) {
+fun Profile(
+    name: String,
+    imageResId: Int,
+    initialRotationValue: Int,
+    durationState: MutableState<Int> = mutableStateOf(3000),
+    onDurationChange: () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp),
+            .padding(vertical = 10.dp)
+            .clickable {
+                onDurationChange()
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val infiniteTransition = rememberInfiniteTransition(label = name)
+        val rotation = remember { Animatable(initialRotationValue.toFloat()) }
 
-        // rotation
-        val rotation by infiniteTransition.animateFloat(
-            initialValue = initialRotationValue.toFloat(),
-            targetValue = initialRotationValue.toFloat() + 360f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(3000, easing = LinearEasing),
-            ),
-            label = "rotation"
-        )
-
+        // durationState 값이 변경될 때마다 새로운 애니메이션 시작
+        LaunchedEffect(durationState.value) {
+            rotation.animateTo(
+                targetValue = rotation.value + 360f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(durationMillis = durationState.value, easing = LinearEasing)
+                )
+            )
+        }
 
         Image(
             modifier = Modifier
-                .rotate(rotation)
+                .rotate(rotation.value)
                 .clip(RoundedCornerShape(45.dp))
                 .size(120.dp),
             painter = painterResource(imageResId),
@@ -99,7 +128,11 @@ fun Profile(name: String, imageResId: Int, initialRotationValue: Int) {
             contentScale = ContentScale.Crop,
         )
         Text(text = name, fontSize = 36.sp, style = MaterialTheme.typography.bodyLarge)
-        Text(text = "Android Developer", fontSize = 24.sp, style = MaterialTheme.typography.bodyLarge)
+        Text(
+            text = "Android Developer",
+            fontSize = 24.sp,
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }
 
