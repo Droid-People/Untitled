@@ -18,9 +18,9 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
+import people.droid.common.theme.UntitledTheme
 import people.droid.untitled.R
-import people.droid.untitled.ui.theme.UntitledTheme
-import people.droid.untitled.ui.theme.YellowBackground
+import people.droid.common.theme.YellowBackground
 
 @Composable
 fun HomeBackground(hasTrashIcon: Boolean = false) {

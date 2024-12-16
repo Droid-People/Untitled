@@ -38,8 +38,8 @@ import people.droid.ads.R
 import people.droid.ads.databinding.NativeAdLayoutBinding
 import people.droid.ads.ui.component.BackButton
 import people.droid.ads.ui.component.LoadingIndicator
-import people.droid.ads.ui.theme.backgroundYellow
 import people.droid.ads.viewmodel.NativeAdViewModel
+import people.droid.common.theme.backgroundYellow
 
 @Composable
 fun NativeAdScreen(nativeAdViewModel: NativeAdViewModel, navigateBack: () -> Unit) {

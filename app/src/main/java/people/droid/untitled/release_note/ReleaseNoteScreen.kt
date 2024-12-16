@@ -38,8 +38,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import people.droid.common.theme.UntitledTheme
 import people.droid.untitled.ui.HomeBackground
-import people.droid.untitled.ui.theme.UntitledTheme
 
 const val RELEASE_NOTES_ROUTE = "release_notes"
 

@@ -44,9 +44,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
 import people.droid.untitled.R
-import people.droid.untitled.ui.theme.StoryMilkyFontFamilyBold
-import people.droid.untitled.ui.theme.UntitledTheme
-import people.droid.untitled.ui.theme.YellowBackground
+import people.droid.common.theme.StoryMilkyFontFamilyBold
+import people.droid.common.theme.UntitledTheme
+import people.droid.common.theme.YellowBackground
 
 const val FEEDBACK_ROUTE = "feedback"
 

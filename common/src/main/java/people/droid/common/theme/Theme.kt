@@ -1,4 +1,4 @@
-package people.droid.untitled.ui.theme
+package people.droid.common.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme

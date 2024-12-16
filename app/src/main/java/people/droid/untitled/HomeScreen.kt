@@ -22,16 +22,15 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import people.droid.ads.ADS_ROUTE
+import people.droid.common.theme.UntitledTheme
 import people.droid.pixelart.PIXEL_ART_ROUTE
 import people.droid.puzzle.ui.screen.PUZZLE_ROUTE
 import people.droid.roulette.ui.ROULETTE_ROUTE
-import people.droid.untitled.release_note.RELEASE_NOTES_ROUTE
 import people.droid.untitled.ui.DEVELOPERS_ROUTE
 import people.droid.untitled.ui.FEEDBACK_ROUTE
 import people.droid.untitled.ui.Feature
 import people.droid.untitled.ui.FeatureGrid
 import people.droid.untitled.ui.HomeBackground
-import people.droid.untitled.ui.theme.UntitledTheme
 import people.droid.untitled.utils.isInEditMode
 
 const val HOME_ROUTE = "home"
@@ -43,7 +42,7 @@ fun HomeScreen(onNavigate: (String) -> Unit = {}) {
         Feature(title = "Roulette", route = ROULETTE_ROUTE),
         Feature(title = "Puzzle", route = PUZZLE_ROUTE),
         Feature(title = "Developers", route = DEVELOPERS_ROUTE),
-        Feature(title = "Release Notes", route = RELEASE_NOTES_ROUTE),
+//        Feature(title = "Release Notes", route = RELEASE_NOTES_ROUTE),
         Feature(title = "Your Ideas", route = FEEDBACK_ROUTE),
         Feature(title = "Ads", route = ADS_ROUTE)
     )

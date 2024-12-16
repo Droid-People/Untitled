@@ -22,7 +22,8 @@ fun PixelArtScreenComposable(navController: NavHostController, viewModel: PixelA
             onClearPixels = viewModel::clearPixels,
             onSharePixelImage = { bitmap ->
                 viewModel.sharePixelImage(bitmap, activity.contentResolver) { intent ->
-                    activity.startActivity(Intent.createChooser(intent, "Share Image"))
+                    activity.startActivity(Intent.createChooser(intent,
+                        activity.getString(R.string.share_image)))
                 }
             },
             onClose = {

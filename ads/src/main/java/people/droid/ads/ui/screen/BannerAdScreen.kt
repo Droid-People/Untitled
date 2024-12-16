@@ -24,7 +24,7 @@ import people.droid.ads.AdsId.BANNER_TEST_ID
 import people.droid.ads.BuildConfig
 import people.droid.ads.ui.component.BackButton
 import people.droid.ads.ui.component.LoadingIndicator
-import people.droid.ads.ui.theme.backgroundYellow
+import people.droid.common.theme.backgroundYellow
 
 @Composable
 fun BannerAdScreen(navigateBack: () -> Unit) {

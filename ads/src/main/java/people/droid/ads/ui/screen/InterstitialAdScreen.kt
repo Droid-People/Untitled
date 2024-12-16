@@ -20,7 +20,7 @@ import people.droid.ads.AdsId.ADS_ID
 import people.droid.ads.AdsId.INTERSTITIAL_TEST_ID
 import people.droid.ads.BuildConfig
 import people.droid.ads.R
-import people.droid.ads.ui.theme.backgroundYellow
+import people.droid.common.theme.backgroundYellow
 
 @Composable
 fun InterstitialAdScreen(navigateBack: () -> Unit) {

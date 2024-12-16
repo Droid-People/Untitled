@@ -27,9 +27,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import people.droid.common.theme.UntitledTheme
+import people.droid.common.theme.YellowBackground
 import people.droid.untitled.R
-import people.droid.untitled.ui.theme.UntitledTheme
-import people.droid.untitled.ui.theme.YellowBackground
 
 data class Feature(
     val title: String,
@@ -85,7 +85,7 @@ fun FeatureItem(
                 .align(Alignment.CenterHorizontally),
             text = title,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodyLarge.copy()
         )
     }
 }

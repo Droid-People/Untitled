@@ -31,8 +31,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import people.droid.common.theme.UntitledTheme
 import people.droid.untitled.R
-import people.droid.untitled.ui.theme.UntitledTheme
 
 const val DEVELOPERS_ROUTE = "developers"
 
