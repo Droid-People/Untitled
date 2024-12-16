@@ -21,6 +21,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import people.droid.ads.ADS_ROUTE
 import people.droid.pixelart.PIXEL_ART_ROUTE
 import people.droid.puzzle.ui.screen.PUZZLE_ROUTE
 import people.droid.roulette.ui.ROULETTE_ROUTE
@@ -43,7 +44,8 @@ fun HomeScreen(onNavigate: (String) -> Unit = {}) {
         Feature(title = "Puzzle", route = PUZZLE_ROUTE),
         Feature(title = "Developers", route = DEVELOPERS_ROUTE),
         Feature(title = "Release Notes", route = RELEASE_NOTES_ROUTE),
-        Feature(title = "Your Ideas", route = FEEDBACK_ROUTE)
+        Feature(title = "Your Ideas", route = FEEDBACK_ROUTE),
+        Feature(title = "Ads", route = ADS_ROUTE)
     )
 
     UntitledTheme {

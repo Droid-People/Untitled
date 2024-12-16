@@ -17,6 +17,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.MobileAds
+import people.droid.ads.ADS_ROUTE
+import people.droid.ads.adsNavGraph
+import people.droid.ads.ui.screen.AdsScreen
+import people.droid.ads.viewmodel.NativeAdViewModel
 import people.droid.pixelart.PIXEL_ART_ROUTE
 import people.droid.pixelart.PixelArtScreenComposable
 import people.droid.pixelart.PixelArtViewModel
@@ -25,11 +29,11 @@ import people.droid.puzzle.ui.screen.PuzzleScreen
 import people.droid.roulette.ui.ROULETTE_ROUTE
 import people.droid.roulette.ui.RouletteScreen
 import people.droid.roulette.ui.viewmodel.RouletteViewModel
+import people.droid.untitled.data.FirebaseDB
+import people.droid.untitled.data.RemoteFeedbackRepository
 import people.droid.untitled.release_note.RELEASE_NOTES_ROUTE
 import people.droid.untitled.release_note.ReleaseNoteScreenComposable
 import people.droid.untitled.release_note.ReleaseNoteViewModel
-import people.droid.untitled.data.FirebaseDB
-import people.droid.untitled.data.RemoteFeedbackRepository
 import people.droid.untitled.ui.DEVELOPERS_ROUTE
 import people.droid.untitled.ui.DeveloperScreen
 import people.droid.untitled.ui.EnterToLeftTransition
@@ -58,6 +62,7 @@ class MainActivity : ComponentActivity() {
                 set(FeedbackViewModel.FEEDBACK_REPOSITORY_KEY, RemoteFeedbackRepository(FirebaseDB()))
             }
         )[FeedbackViewModel::class.java]
+        val nativeAdViewModel = ViewModelProvider(this@MainActivity)[NativeAdViewModel::class.java]
 
         MobileAds.initialize(this@MainActivity)
 
@@ -137,6 +142,16 @@ class MainActivity : ComponentActivity() {
                     ) {
                         FeedbackScreen(feedbackViewModel, navController::popBackStack)
                     }
+                    composable(
+                        ADS_ROUTE,
+                        enterTransition = EnterToLeftTransition(),
+                        popEnterTransition = EnterToRightTransition(),
+                        exitTransition = ExitToLeftTransition(),
+                        popExitTransition = ExitToRightTransition()
+                    ) {
+                        AdsScreen(navigate = navController::navigate, navigateBack = navController::popBackStack)
+                    }
+                    adsNavGraph(navController::popBackStack, nativeAdViewModel)
                 }
             }
             LaunchedEffect(Unit) {
