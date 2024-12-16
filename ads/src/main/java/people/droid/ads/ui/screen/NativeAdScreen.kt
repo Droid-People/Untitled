@@ -39,7 +39,7 @@ import people.droid.ads.databinding.NativeAdLayoutBinding
 import people.droid.ads.ui.component.BackButton
 import people.droid.ads.ui.component.LoadingIndicator
 import people.droid.ads.viewmodel.NativeAdViewModel
-import people.droid.common.theme.backgroundYellow
+import people.droid.common.theme.YellowBackground
 
 @Composable
 fun NativeAdScreen(nativeAdViewModel: NativeAdViewModel, navigateBack: () -> Unit) {
@@ -78,7 +78,7 @@ fun NativeAdScreen(nativeAdViewModel: NativeAdViewModel, navigateBack: () -> Uni
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
-                .background(backgroundYellow)
+                .background(YellowBackground)
                 .padding(innerPadding)
         ) {
             BackButton(modifier = Modifier.align(Alignment.Start), navigateBack = navigateBack)

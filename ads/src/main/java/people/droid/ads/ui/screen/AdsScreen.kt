@@ -29,7 +29,7 @@ import people.droid.ads.NATIVE_ROUTE
 import people.droid.ads.R
 import people.droid.ads.ui.component.BackButton
 import people.droid.common.theme.UntitledTheme
-import people.droid.common.theme.backgroundYellow
+import people.droid.common.theme.YellowBackground
 
 @Composable
 fun AdsScreen(navigate: (String) -> Unit, navigateBack: () -> Unit) {
@@ -38,7 +38,7 @@ fun AdsScreen(navigate: (String) -> Unit, navigateBack: () -> Unit) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundYellow)
+                    .background(YellowBackground)
                     .padding(innerPadding),
                 contentAlignment = Alignment.Center
             ) {

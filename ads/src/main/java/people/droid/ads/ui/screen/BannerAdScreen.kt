@@ -24,7 +24,7 @@ import people.droid.ads.AdsId.BANNER_TEST_ID
 import people.droid.ads.BuildConfig
 import people.droid.ads.ui.component.BackButton
 import people.droid.ads.ui.component.LoadingIndicator
-import people.droid.common.theme.backgroundYellow
+import people.droid.common.theme.YellowBackground
 
 @Composable
 fun BannerAdScreen(navigateBack: () -> Unit) {
@@ -44,7 +44,7 @@ fun BannerAdScreen(navigateBack: () -> Unit) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(backgroundYellow)
+                .background(YellowBackground)
                 .padding(innerPadding)
         ) {
             BackButton(modifier = Modifier.align(Alignment.TopStart), navigateBack = navigateBack)

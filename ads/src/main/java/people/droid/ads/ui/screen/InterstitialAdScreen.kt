@@ -20,7 +20,7 @@ import people.droid.ads.AdsId.ADS_ID
 import people.droid.ads.AdsId.INTERSTITIAL_TEST_ID
 import people.droid.ads.BuildConfig
 import people.droid.ads.R
-import people.droid.common.theme.backgroundYellow
+import people.droid.common.theme.YellowBackground
 
 @Composable
 fun InterstitialAdScreen(navigateBack: () -> Unit) {
@@ -33,7 +33,7 @@ fun InterstitialAdScreen(navigateBack: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundYellow)
+            .background(YellowBackground)
     )
 }
 
