@@ -60,6 +60,7 @@ fun FeedbackScreen(viewModel: FeedbackViewModel, goToHome: () -> Unit) {
         if (!isSendMessageScreenShown) {
             delay(1500)
             goToHome()
+            viewModel.resetUiState()
         }
     }
     FeedbackScreenUI(
