@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BANANA</string>
+    <string name="fail_message_feedback_submission">Submission failed... Please try again.</string>
+    <string name="label_feedback">Your Ideas</string>
+    <string name="description_feedback">Let us know what features you\'d like to see!\nWe\'ll do our best to add them!</string>
+    <string name="label_submit_feedback_button">SEND</string>
+    <string name="success_message_feedback_submission">Successfully sent!</string>
 </resources>
