@@ -4,7 +4,9 @@
 <div align="center">
   <h2>What The Banana</h2>
   <h3>우리들이 만들고 싶은 걸 자유롭게 만든 앱</h3>
-  2024.11 ~ In Progress
+
+  [Download in PlayStore](https://play.google.com/store/apps/details?id=people.droid.untitled)
+  
 </div>
 
 ## What The Banana?
