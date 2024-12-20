@@ -27,4 +27,6 @@ What The Banana는 우리들이 만들고 싶은 걸 자유롭게 만든 앱 입
     - Firestore
 ## Architecture
 ### Module
-<img src="https://github.com/user-attachments/assets/876d4d9f-42bc-49b2-8715-0a0b7b62e5a9"/>
+- Feature 별로 모듈 분리
+- 메인 Font, Theme, Color는 common 모듈로 분리 
+<img src="https://github.com/user-attachments/assets/85c14bb9-6e0a-4863-960b-6561ac16734b"/>
