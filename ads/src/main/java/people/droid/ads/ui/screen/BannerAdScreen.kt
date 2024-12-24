@@ -19,7 +19,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
-import people.droid.ads.AdsId.ADS_ID
+import people.droid.ads.AdsId.BANNER_AD_ID
 import people.droid.ads.AdsId.BANNER_TEST_ID
 import people.droid.ads.BuildConfig
 import people.droid.ads.ui.component.BackButton
@@ -70,7 +70,7 @@ fun BannerAdScreen(navigateBack: () -> Unit) {
     }
 }
 
-private fun getBannerAdId() = if (BuildConfig.DEBUG) BANNER_TEST_ID else ADS_ID
+private fun getBannerAdId() = if (BuildConfig.DEBUG) BANNER_TEST_ID else BANNER_AD_ID
 
 @Preview(showBackground = true)
 @Composable

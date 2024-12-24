@@ -31,7 +31,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
-import people.droid.ads.AdsId.ADS_ID
+import people.droid.ads.AdsId.NATIVE_AD_ID
 import people.droid.ads.AdsId.NATIVE_TEST_ID
 import people.droid.ads.BuildConfig
 import people.droid.ads.R
@@ -115,7 +115,7 @@ fun NativeAdItem(nativeAd: NativeAd) {
     )
 }
 
-private fun getNativeAdId() = if (BuildConfig.DEBUG) NATIVE_TEST_ID else ADS_ID
+private fun getNativeAdId() = if (BuildConfig.DEBUG) NATIVE_TEST_ID else NATIVE_AD_ID
 
 fun setNativeAdView(nativeAd: NativeAd, binding: NativeAdLayoutBinding) {
     with(binding) {

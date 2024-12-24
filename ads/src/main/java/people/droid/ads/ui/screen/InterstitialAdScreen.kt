@@ -16,7 +16,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import people.droid.ads.AdsId.ADS_ID
+import people.droid.ads.AdsId.INTERSTITIAL_AD_ID
 import people.droid.ads.AdsId.INTERSTITIAL_TEST_ID
 import people.droid.ads.BuildConfig
 import people.droid.ads.R
@@ -59,7 +59,7 @@ fun showInterstitialAd(context: Context, navigateBack: () -> Unit) {
     )
 }
 
-private fun getInterstitialAdId() = if (BuildConfig.DEBUG) INTERSTITIAL_TEST_ID else ADS_ID
+private fun getInterstitialAdId() = if (BuildConfig.DEBUG) INTERSTITIAL_TEST_ID else INTERSTITIAL_AD_ID
 
 @Preview(showBackground = true)
 @Composable
