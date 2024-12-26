@@ -31,16 +31,12 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun RouletteItemTextField(text: String, onValueChange: (String) -> Unit) {
 
-    var textFieldValueState by remember(text) {
-        mutableStateOf(TextFieldValue(text = text, selection = TextRange(text.length)))
-    }
     var isFocused by remember { mutableStateOf(false) }
 
     BasicTextField(
-        value = textFieldValueState,
+        value = text,
         onValueChange = {
-            onValueChange(it.text)
-            textFieldValueState = it
+            onValueChange(it)
         },
         modifier = Modifier.onFocusChanged {
             isFocused = it.isFocused
