@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,14 +24,18 @@ import people.droid.ads.AdsId.INTERSTITIAL_AD_ID
 import people.droid.ads.AdsId.INTERSTITIAL_TEST_ID
 import people.droid.ads.BuildConfig
 import people.droid.ads.R
+import people.droid.ads.ui.component.LoadingIndicator
 import people.droid.common.theme.YellowBackground
 
 @Composable
 fun InterstitialAdScreen(navigateBack: () -> Unit) {
     val context = LocalContext.current
+    var isLoading by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
-        showInterstitialAd(context, navigateBack)
+        showInterstitialAd(context, navigateBack) {
+            isLoading = false
+        }
     }
 
     Box(
@@ -35,9 +43,12 @@ fun InterstitialAdScreen(navigateBack: () -> Unit) {
             .fillMaxSize()
             .background(YellowBackground)
     )
+    if (isLoading) {
+        LoadingIndicator()
+    }
 }
 
-fun showInterstitialAd(context: Context, navigateBack: () -> Unit) {
+fun showInterstitialAd(context: Context, navigateBack: () -> Unit, updateIsLoading: () -> Unit) {
     InterstitialAd.load(
         context,
         getInterstitialAdId(),
@@ -48,6 +59,7 @@ fun showInterstitialAd(context: Context, navigateBack: () -> Unit) {
             }
 
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                updateIsLoading()
                 interstitialAd.show(context as Activity)
                 interstitialAd.fullScreenContentCallback = object : FullScreenContentCallback() {
                     override fun onAdDismissedFullScreenContent() {
