@@ -62,29 +62,22 @@ fun RouletteScreen(
     val state = uiState.rouletteState
     val rotation = uiState.rotation
 
-    var sliceCount by remember {
-        uiState.sliceCount
+    var itemTexts by remember(uiState.rouletteItems) {
+        mutableStateOf(uiState.rouletteItems.value.getItems().map { it.value })
     }
-    val items by remember {
-        uiState.rouletteItems
-    }
-    var itemTexts by remember {
-        mutableStateOf(items.getItems().map { it.value })
-    }
-    var itemsFocusedInfo by remember {
-        mutableStateOf(List(items.getItems().size) { false })
+    var itemsFocusedInfo by remember(uiState.sliceCount) {
+        mutableStateOf(List(uiState.sliceCount.value) { false })
     }
     val scope = rememberCoroutineScope()
     RouletteTheme {
         RouletteScreenUi(
             popBackStack = popBackStack,
             focusManager = focusManager,
-            totalNumberTextFieldValue = sliceCount,
+            totalNumberTextFieldValue = uiState.sliceCount.value,
             totalNumberChange = {
-                sliceCount = it
                 viewModel.updateNumber(it)
             },
-            rouletteItems = items,
+            rouletteItems = uiState.rouletteItems.value,
             onRouletteItemChanged = { index, value ->
                 val updatedItems = itemTexts.toMutableList().apply { this[index] = value }
                 itemTexts = updatedItems
@@ -272,7 +265,9 @@ private fun TotalNumberInputScreen(
         Spacer(modifier = Modifier.height(5.dp))
         RouletteSettingTextField(
             number = number,
-            onValueChange = onValueChange
+            onValueChange = {
+                onValueChange(it)
+            }
         )
     }
 }

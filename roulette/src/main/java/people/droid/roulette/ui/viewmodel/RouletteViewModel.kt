@@ -2,6 +2,7 @@ package people.droid.roulette.ui.viewmodel
 
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.tween
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,10 +26,9 @@ class RouletteViewModel : ViewModel() {
         (0 until minNum).forEach {
             newItems.updateValue(it, currentItems[it].value)
         }
-
         _uiState.update {
             it.copy(
-                sliceCount = mutableStateOf(number),
+                sliceCount = mutableIntStateOf(number),
                 rouletteItems = mutableStateOf(newItems)
             )
         }
