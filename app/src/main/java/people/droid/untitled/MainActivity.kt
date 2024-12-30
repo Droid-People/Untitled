@@ -34,6 +34,8 @@ import people.droid.untitled.data.RemoteFeedbackRepository
 import people.droid.untitled.release_note.RELEASE_NOTES_ROUTE
 import people.droid.untitled.release_note.ReleaseNoteScreenComposable
 import people.droid.untitled.release_note.ReleaseNoteViewModel
+import people.droid.untitled.ui.APP_INTRODUCTION_ROUTE
+import people.droid.untitled.ui.AppIntroductionScreen
 import people.droid.untitled.ui.DEVELOPERS_ROUTE
 import people.droid.untitled.ui.DeveloperScreen
 import people.droid.untitled.ui.EnterToLeftTransition
@@ -141,6 +143,15 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = ExitToRightTransition()
                     ) {
                         FeedbackScreen(feedbackViewModel, navController::popBackStack)
+                    }
+                    composable(
+                        APP_INTRODUCTION_ROUTE,
+                        enterTransition = EnterToLeftTransition(),
+                        popEnterTransition = EnterToRightTransition(),
+                        exitTransition = ExitToLeftTransition(),
+                        popExitTransition = ExitToRightTransition()
+                    ){
+                        AppIntroductionScreen()
                     }
                     composable(
                         ADS_ROUTE,
