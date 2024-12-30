@@ -21,9 +21,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
@@ -57,27 +59,36 @@ fun RouletteScreen(
     val focusManager = LocalFocusManager.current
 
     val uiState = viewModel.uiState.collectAsState().value
-    val rouletteItems = uiState.items
-    val state = uiState.state
+    val state = uiState.rouletteState
     val rotation = uiState.rotation
 
-    val totalNumberTextFieldValue = remember {
-        mutableIntStateOf(uiState.number)
+    var sliceCount by remember {
+        uiState.sliceCount
     }
-
+    val items by remember {
+        uiState.rouletteItems
+    }
+    var itemTexts by remember {
+        mutableStateOf(items.getItems().map { it.value })
+    }
+    var itemsFocusedInfo by remember {
+        mutableStateOf(List(items.getItems().size) { false })
+    }
     val scope = rememberCoroutineScope()
     RouletteTheme {
         RouletteScreenUi(
             popBackStack = popBackStack,
             focusManager = focusManager,
-            totalNumberTextFieldValue = uiState.number,
+            totalNumberTextFieldValue = sliceCount,
             totalNumberChange = {
-                totalNumberTextFieldValue.intValue = it
+                sliceCount = it
                 viewModel.updateNumber(it)
             },
-            rouletteItems = rouletteItems,
-            onItemValueUpdate = { index, value ->
-                viewModel.updateValue(index, value)
+            rouletteItems = items,
+            onRouletteItemChanged = { index, value ->
+                val updatedItems = itemTexts.toMutableList().apply { this[index] = value }
+                itemTexts = updatedItems
+                viewModel.updateRouletteItemValue(index, value)
             },
             rotation = rotation,
             state = state,
@@ -94,7 +105,13 @@ fun RouletteScreen(
                 }
 
             },
-            realTarget = viewModel.getRealTarget()
+            realTarget = viewModel.getRealTarget(),
+            itemTexts = itemTexts,
+            itemsFocusedInfo = itemsFocusedInfo,
+            onFocusChanged = { index, value ->
+                val updatedItems = itemsFocusedInfo.toMutableList().apply { this[index] = value }
+                itemsFocusedInfo = updatedItems
+            }
         )
     }
 
@@ -108,11 +125,14 @@ private fun RouletteScreenUi(
     totalNumberChange: (Int) -> Unit,
     rouletteItems: RouletteItems,
     rotation: Animatable<Float, AnimationVector1D>,
-    onItemValueUpdate: (Int, String) -> Unit,
+    onRouletteItemChanged: (Int, String) -> Unit,
     state: RouletteState,
     onResetButtonClick: () -> Unit,
     onSpinButtonClick: () -> Unit,
     realTarget: RouletteItem,
+    itemTexts: List<String>,
+    itemsFocusedInfo: List<Boolean>,
+    onFocusChanged: (Int, Boolean) -> Unit
 ) {
     Scaffold(
         modifier = Modifier
@@ -163,7 +183,10 @@ private fun RouletteScreenUi(
                 items = rouletteItems,
                 rotation = rotation,
                 state = state,
-                onItemValueUpdate = onItemValueUpdate
+                onTextChanged = onRouletteItemChanged,
+                itemTexts = itemTexts,
+                itemsFocusedInfo = itemsFocusedInfo,
+                onFocusChanged = onFocusChanged,
             )
             Spacer(modifier = Modifier.height(40.dp))
             Spacer(modifier = Modifier.height(20.dp))
@@ -311,10 +334,13 @@ private fun GreetingPreview() {
             totalNumberChange = {},
             rouletteItems = items,
             rotation = rotation,
-            onItemValueUpdate = { _, _ -> },
+            onRouletteItemChanged = { _, _ -> },
             state = RouletteState.COMPLETE,
             onSpinButtonClick = {},
             realTarget = items.getItems()[0], onResetButtonClick = {},
+            itemTexts = listOf(),
+            itemsFocusedInfo = listOf(),
+            onFocusChanged = { _, _ -> }
         )
     }
 }

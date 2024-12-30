@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">BANANA</string>
-    <string name="fail_message_feedback_submission">Submission failed... Please try again.</string>
+    <string name="fail_message_feedback_submission">Submission failed… Please try again.</string>
     <string name="label_feedback">Your Ideas</string>
     <string name="description_feedback">Let us know what features\nyou\'d like to see!\nWe\'ll do our best to add them!</string>
     <string name="label_submit_feedback_button">SEND</string>
     <string name="success_message_feedback_submission">Successfully sent!</string>
+    <string name="app_description">
+        What The Banana is an app we created freely to make what we wanted.\n
+        \nCurrently, it features a Pixel Art Maker, Roulette, and Puzzle!\n
+        \nIn the future, we can add features you’d like, so feel free to share your suggestions anytime through the "Your Ideas" feature in the app!\n
+        \nWhy is it called Banana, you ask? Just because. 😊
+    </string>
 </resources>

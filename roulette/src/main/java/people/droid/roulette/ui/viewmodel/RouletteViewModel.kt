@@ -2,6 +2,7 @@ package people.droid.roulette.ui.viewmodel
 
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.tween
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +19,7 @@ class RouletteViewModel : ViewModel() {
 
     fun updateNumber(number: Int) {
         val newItems = RouletteItems.create(number)
-        val currentItems = _uiState.value.items.getItems()
+        val currentItems = _uiState.value.rouletteItems.value.getItems()
         val minNum = minOf(newItems.getItems().size, currentItems.size)
 
         (0 until minNum).forEach {
@@ -27,14 +28,14 @@ class RouletteViewModel : ViewModel() {
 
         _uiState.update {
             it.copy(
-                number = number,
-                items = newItems
+                sliceCount = mutableStateOf(number),
+                rouletteItems = mutableStateOf(newItems)
             )
         }
     }
 
     private fun makeTargetSection() {
-        val section = Random.nextInt(0, _uiState.value.number)
+        val section = Random.nextInt(0, _uiState.value.sliceCount.value)
         _uiState.update {
             it.copy(
                 targetSection = section
@@ -43,19 +44,19 @@ class RouletteViewModel : ViewModel() {
     }
 
     fun getRealTarget(): RouletteItem {
-        val number = _uiState.value.number
+        val number = _uiState.value.sliceCount
         val targetSection = _uiState.value.targetSection
-        return _uiState.value.items.getItems()[(number - targetSection) % number]
+        return _uiState.value.rouletteItems.value.getItems()[(number.value - targetSection) % number.value]
     }
 
-    fun updateValue(index: Int, value: String) {
-        _uiState.value.items.updateValue(index, value)
+    fun updateRouletteItemValue(index: Int, value: String) {
+        _uiState.value.rouletteItems.value.updateValue(index, value)
     }
 
     private fun makeRouletteStateProgressing() {
         _uiState.update {
             it.copy(
-                state = RouletteState.PROGRESSING
+                rouletteState = RouletteState.PROGRESSING
             )
         }
     }
@@ -63,7 +64,7 @@ class RouletteViewModel : ViewModel() {
     private fun makeRouletteStateComplete() {
         _uiState.update {
             it.copy(
-                state = RouletteState.COMPLETE
+                rouletteState = RouletteState.COMPLETE
             )
         }
     }
@@ -71,7 +72,7 @@ class RouletteViewModel : ViewModel() {
     fun resetGame() {
         _uiState.update {
             it.copy(
-                state = RouletteState.SETTING,
+                rouletteState = RouletteState.SETTING,
             )
         }
     }
@@ -86,7 +87,7 @@ class RouletteViewModel : ViewModel() {
         initializeRotation()
         makeRouletteStateProgressing()
         _uiState.value.rotation.animateTo(
-            targetValue = (baseRotation + (_uiState.value.targetSection * (360 / _uiState.value.number))).toFloat(),
+            targetValue = (baseRotation + (_uiState.value.targetSection * (360 / _uiState.value.sliceCount.value))).toFloat(),
             animationSpec = tween(
                 durationMillis = 3000,
                 easing = EaseOut
