@@ -2,7 +2,6 @@
 <resources>
 
     <style name="Theme.Untitled" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/main_banana</item>
         <item name="android:windowSplashScreenBackground">@color/yellow_background</item>
     </style>
 </resources>
