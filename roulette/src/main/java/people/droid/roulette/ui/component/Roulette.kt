@@ -102,5 +102,10 @@ fun RoulettePreview() {
     Roulette(
         items = RouletteItems.create(3),
         state = RouletteState.SETTING,
-        onTextChanged = { _, _ -> })
+        onTextChanged = { _, _ -> },
+        itemTexts = listOf("", "", ""),
+        itemsFocusedInfo = listOf(false, false, false),
+        onFocusChanged = {_,_ ->},
+
+    )
 }
